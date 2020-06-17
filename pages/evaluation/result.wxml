@@ -1,0 +1,111 @@
+<view class="main" style="background-size:100% {{imgheight}}px">
+  <view class="personal" style="height:{{imgheight}}px">
+      <image class="headimg" style="height:{{headImgHeight}}px;width:{{headImgHeight}}px;margin:{{topMargin}}px auto 0;" src='{{headImg}}'></image>
+      <view class="nickname">{{nickName}}</view>
+    </view>
+  <view class="container">    
+    <view class="result_box">
+      <view class="result" style="color:{{colorList[result.spasi_i]}};">
+        <view class="num">
+          <image src="../../images/l{{result.spasi_i}}.png"></image>
+          <text class="text">{{spasiList[result.spasi_i]}}</text>
+        </view>
+        <text class="text">严重程度\n评级</text>
+      </view>
+      <view class="result" style="color:{{colorList[result.qol_i]}};">
+        <view class="num">
+          <image src="../../images/l{{result.qol_i}}.png"></image>
+          <text class="text">{{qolList[result.qol_i]}}</text>
+        </view>
+        <text class="text">生活质量\n评级</text>
+      </view>
+      <view class="result" style="color:{{colorList[result.psa_i]}};">
+        <view class="num">
+          <image src="../../images/l{{result.psa_i}}.png"></image>
+          <text class="text">{{psaList[result.psa_i]}}</text>
+        </view>
+        <text class="text">关节炎\n评估</text>
+      </view>
+    </view>
+    <view class="suggest_box">
+      <view class="h3">评估结果:</view>
+      <view class="suggest">
+        <view class="l_tag" style="background-color:{{colorList[result.spasi_i]}}"></view> {{result.spasi_s}}
+      </view>
+      <view class="suggest">
+        <view class="l_tag" style="background-color:{{colorList[result.qol_i]}}"></view>{{result.qol_s}}
+      </view>
+      
+      <view class="suggest">
+        <view class="l_tag" style="background-color:{{colorList[result.pest_i]}}"></view>{{result.pest_s}}
+      </view>
+
+    </view>
+    
+    <view class="suggest_box">
+      <view class="h3">防控建议:</view>
+      <view class="suggest">{{result.suggest}}</view>
+      <view class="suggest">{{result.pest_suggest}}</view>
+    </view>
+
+    <view class="suggest_box">
+      <view class="h3">风险提示:</view>
+      <view class="suggest">
+        <view class="l_tag" style="background-color:{{colorList[result.psa_i]}}"></view>{{result.psa_s}}
+          <block wx:if="{{result.risks.length>0}}">
+            <view class="suggest_box">
+              <view class="h4">风险点:</view>
+              <view class="suggest" wx:for="{{result.risks}}">{{item}}</view>
+            </view>  
+          </block>
+      </view>
+    </view>
+    
+    
+
+
+
+    <view class="report_box">
+      <image src="/images/report.png" class="report"></image>
+    </view>    
+    <view class='btns'>
+      <view class='btn btn_primary' bindtap='reply'> 病情记录及反馈</view>
+      <view class='btn btn_primary' bindtap='share_result'> 分享结果给医生</view>
+    </view>
+      
+  </view>
+   
+</view>
+<official-account></official-account>
+
+
+<view class='mask' wx:if='{{show}}'>
+  <view class='modal-content'>
+    <view class="modal-logo">
+      <image class="logo" src="/images/logo.png"></image>
+    </view>
+    <view class='modal-title'>温馨提示</view>
+    <view class='modal-des'>您尚未提交个人信息,是否现在填写?</view>
+    <view class='modal-btns'>
+        <button class='modal-btn btn_cancel'  bindtap='cancel'>否</button>
+        <button class='modal-btn btn_primary' bindtap="info">是</button>
+    </view>    
+  </view>
+</view>
+
+
+<view class='mask' wx:if='{{show1}}'>
+  <view class='modal-content'>
+    <view class="modal-logo">
+      <image class="logo" src="/images/logo.png"></image>
+    </view>
+    <view class='modal-title'>请将此二维码出示给医生</view>
+    <view class="code-img" style="width:80%;margin:0 auto;height:{{codeHeight}};background-color: #f5f5f5;">
+      <image style="width:90%;padding:5%;height:90%" src="{{base64ImgUrl}}"></image>
+    </view>
+    <view class='modal-btns bt'>
+        <button class='modal-btn btn_cancel'  bindtap='cancel1'>取消</button>
+        <button class='modal-btn btn_primary' bindtap="home">主页</button>
+    </view>    
+  </view>
+</view>

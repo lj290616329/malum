@@ -1,0 +1,132 @@
+@import "../../style/dialog.wxss";
+page{position: relative;}
+.main{
+  width:100%;
+  background:url('http://pic.tsing-tec.com/eplus/images/57a0a03105794dd6a536877b958a0a9b.png') no-repeat;  
+  background-color: #ffffff;
+  padding-bottom: 88px;
+}
+.personal{
+  width: 100%;
+  display: inline-block;
+}
+.headimg{
+  width:150rpx;
+  height: 150rpx;
+  display: block;
+  border-radius: 50%;  
+  margin: 100rpx auto 0;
+  border: 6rpx #5369fd solid;
+}
+.nickname{
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  font-size: 36rpx;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 50rpx;
+	letter-spacing: 0px;
+	color: #ffffff;
+	opacity: 0.8;
+}
+.container {
+  
+  box-sizing: border-box;
+  padding: 0 1rem;
+  background-color: #fff;
+  border-radius: 40rpx;
+  position: relative;
+  top: 1.125rem;
+
+}
+.result_box{
+  width: 90%;
+  text-align: center;
+  border-bottom: 2rpx dashed #ababab;
+  padding-bottom: 30rpx;
+  margin: 0 auto;
+  display: flex;
+}
+.result{
+  flex: 1;
+  line-height: 28rpx;
+}
+.num{
+  width: 100%;
+}
+.num image{
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5rpx;
+}
+.num text{
+  height:48rpx;
+  display:block;
+  opacity: 0.7;
+  font-weight: 400;
+}
+.text{
+  font-size: 24rpx;  
+  opacity: 0.7;
+}
+.suggest_box{
+  width: 90%;
+  margin: 30rpx auto;
+  
+}
+.h3{
+  display: block;
+  font-size: 32rpx;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 40rpx;
+	color: #000;
+  opacity: 0.9;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+.suggest{
+  font-size: 28rpx;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 50rpx;
+	display: block;
+	color: #000000;
+  opacity: 0.7;
+  margin-bottom: 10rpx;
+}
+.l_tag{
+  background-color: #ababab;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-right: 10rpx;
+}
+
+
+.btncolor {  
+  background: #5369fd;
+  color: #fff;
+  border-radius: 50rpx;
+  width: 40%;
+  font-size: 16px;
+  padding: 6px 0;
+}
+.report_box{
+  position: absolute;
+  right: 30rpx;
+  width: 250rpx;
+  height: 250rpx;
+  bottom: 350rpx;
+}
+.report{
+  width:100%;
+  height: 100%;
+  opacity: 0.8;
+}
+.bt{
+  margin:1rem 1rem 1.5rem;
+}

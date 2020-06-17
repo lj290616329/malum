@@ -1,0 +1,56 @@
+<include src ="../template/error.wxml"/>
+<view class="main">
+  <view class="tag"></view>
+  <view class="container">
+    <view class="title">
+      <text>评估表1</text>
+    </view>
+
+    <view class='content'>     
+      <view class="item" wx:for="{{items}}" wx:for-index="index">
+        <view class='lbs'></view>
+        <view class='titles'>{{item}}:</view>
+        <view class='result'>{{result[index]===''?'':result[index]+'级'}}</view>
+        <view bindtap='showpics' data-index='{{index}}' class='choose'>请选择</view>        
+      </view>
+      
+
+      <view class='separate'></view>
+      
+      <view class="item">
+        <view class='lbs'></view>
+        <view class='titles'>生活质量评分:</view>        
+        <view class='result'></view>
+        <picker bindchange="bindPickerlife" value="{{life}}" range="{{arraylife}}">
+            <view size='mini' bindtap='bindpic2' class='choose'>请选择</view>
+        </picker>
+      </view>
+
+      <view class='item picheight' wx:if="{{level}}">
+        <image class='image1 {{level==""?"nopic":""}}' mode='widthFix' src="{{lifePic}}">
+      </image>
+
+      </view>
+        
+      <view class="item">
+        <button class='btncolor' bindtap='formSubmit'> 下一步 </button>
+      </view>       
+    </view>
+    <!-- 显示图片 -->
+    <scroll-view scroll-y="true" class="modal-mask" wx:if="{{pics}}">
+      <view class="pics_box">
+        <view class="prompt_title">
+          <text>点击选择最符合您病情的图例</text>
+        </view>
+        <block wx:for="{{imageBox}}" wx:for-item="index" wx:for-item="item">
+          <view class='pic' bindtap='choosePic' data-index="{{index}}">
+            <image mode='widthFix' src="http://gridpic.tsing-tec.com/{{item[0]}}"></image>
+            <view class="grade">{{item[1]}}</view>
+          </view>        
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+  
+  

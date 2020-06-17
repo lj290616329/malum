@@ -1,0 +1,23 @@
+/**首页grid*/
+.grid_box{
+  display:flex;
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+}
+.grid{
+  flex:1;
+  padding: 1.25rem 0.625rem;
+}
+.grid-icon{
+  width: 5rem;
+  height: 5rem;
+  display: block;
+  margin: 0 auto;  
+}
+.grid-text{
+  font-size: 1rem;
+  color: #000000;
+  opacity: 0.8;
+  margin-top: 0.315rem;  
+}

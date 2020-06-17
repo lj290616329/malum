@@ -1,0 +1,53 @@
+<include src ="../template/error.wxml"/>
+<view class="info-main">
+  <view class="form-container">
+    <view class="form-title">个人信息</view>
+    <view class="form-cells">
+      <view class="form-cell">
+        <view class="form-cell_lable">
+          <text  decode='true'>姓&emsp;&emsp;名:</text>
+        </view>
+        <view class="form-cell_val">
+          <input class='form-cell_input' bindblur="bindKeyInput" data-type="name" data-index="0" placeholder="请输入您的真实姓名" type='text' value="{{vals[0]}}"></input>
+        </view>
+      </view>
+      <view class="form-cell">
+        <view class="form-cell_lable"><text  decode='true'>性&emsp;&emsp;别:</text></view>
+        
+        <radio-group class="form-cell_input flex" bindchange="radioChoose" bindblur="bindKeyInput" data-type="sex" data-index="1">
+          <label class="flex flex1">
+            <radio color="#fff" value="1" checked='{{vals[1]=="1"?"checked":""}}'/>
+            <text class="radio-lable">男</text>       
+          </label>
+          <label class="flex flex1">
+            <radio color="#fff" value="2" checked='{{vals[1]=="2"?"checked":""}}'/>
+            <text class="radio-lable">女</text>           
+          </label>
+        </radio-group>
+      </view>
+      <view class="form-cell">
+        <view class="form-cell_lable"><text  decode='true'>微信号码:</text></view>
+        <input class='form-cell_input' bindblur="bindKeyInput" data-type="wx" data-index="2" placeholder="请输入您的微信号码" type='text' value="{{vals[2]}}"></input>
+      </view>
+      
+      <view class="form-cell">
+        <view class="form-cell_lable"><text  decode='true'>出生日期:</text></view>
+        <picker class='form-cell_input' style="line-height:88rpx;" mode="date" start="1915-01-01" end="new Date()" bindchange="bindPickerBirthday" data-index="3">
+          <text wx:if='{{vals[3]}}'>{{vals[3]}}</text>
+          <text class='input-placeholder' wx:else>请选择您的出生日期</text>                          
+        </picker>
+      </view>
+      <view class="form-cell">
+        <view class="form-cell_lable"><text  decode='true'>教育程度:</text></view>
+        <picker class='form-cell_input' style="line-height:88rpx;" bindchange="bindPickerEducation" value="{{vals[4]}}" range="{{arrayeducation}}" data-index="4">
+          <text wx:if='{{vals[4]}}'>{{arrayeducation[vals[4]]}}</text>
+          <text class='input-placeholder' wx:else>请选择您的教育程度</text>
+        </picker>
+      </view>
+      <view class='btns'>
+        <view class='btn btn_cancel' bindtap='cancel'>取消</view>
+        <view class='btn btn_primary' bindtap='formSubmit'>保存</view>
+      </view>     
+    </view>
+  </view>
+</view>

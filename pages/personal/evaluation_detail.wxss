@@ -1,0 +1,19 @@
+@import "../../style/detail.wxss";
+@import "../../style/cells.wxss";
+@import "../../style/dialog.wxss";
+.main{
+  width:100%;
+}
+.content{
+  margin: 0 auto;
+  position:relative;
+  top:4rem;
+  padding-bottom: 4rem;
+}
+.index-bd {
+  padding: 0 0 1.125rem;
+}
+
+.bt{
+  margin: 1rem 1rem 1.5rem;
+}

@@ -1,0 +1,128 @@
+@import '../../style/grids.wxss';
+@import '../../style/copyright.wxss';
+@import '../../style/dialog.wxss';
+
+.main{
+  width:100%;
+  height: 100%;  
+  background:url('http://gridpic.tsing-tec.com/57a0a03105794dd6a536877b958a0a9b.png') no-repeat;  
+  background-color: #ffffff;
+}
+
+.personal{
+  width: 100%;
+  display: inline-block;
+}
+
+.headimg{
+  width:190rpx;
+  height: 190rpx;
+  display: block;
+  border-radius: 50%;  
+  margin: 2.625rem auto 0;
+  border:6rpx #5369fd solid;
+}
+
+.nickname{
+  display: block;
+  margin: 1rem auto;
+  width: 100%;
+  text-align: center;
+  font-size: 1.125rem;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 50rpx;
+	letter-spacing: 0px;
+	color: #ffffff;
+	opacity: 0.8;
+}
+
+.container {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.go-test {
+  position: relative;
+  top: -2rem;
+  width: 10rem;
+  margin: 0 auto;
+  height: 3rem;
+  line-height: 3rem;
+  background: #5369fd;
+  color: #fff;
+  border-radius: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.report_box{
+  position: relative;
+  left: 180rpx;
+  width: 250rpx;
+  height: 250rpx;
+  bottom: 150rpx;
+}
+.report{
+  width:100%;
+  height: 100%;
+}
+
+
+.mask{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 9999;
+}
+
+
+
+
+
+
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img_box{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;   
+}
+.img_box image{
+  width: 100%;
+}
+
+.explain{ 
+  text-align-last:left;
+  text-align:justify;
+  text-justify:distribute-all-lines; 
+  font-size: 1rem;
+  font-stretch: normal;
+  line-height: 1.4;
+  color: #000000;
+  opacity: 0.6;
+  padding: 0 1.125rem;
+  display: block;
+}
+.bt{
+  margin: 1.5rem 1rem;
+}

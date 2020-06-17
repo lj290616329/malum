@@ -1,0 +1,257 @@
+<wxs src="../../utils/util.wxs" module="util"/>
+<include src ="../template/error.wxml"/>
+<view class="main">
+  <view class="navbar">
+    <view bindtap="changeTab" data-index="0" class="navbar_item {{tab==0 ? 'navbar_item_active':''}}">用药反馈</view>
+    <view bindtap="changeTab" data-index="1" class="navbar_item {{tab==1 ? 'navbar_item_active':''}}">病情记录</view>
+    <view bindtap="changeTab" data-index="2" class="navbar_item {{tab==2 ? 'navbar_item_active':''}}">建议意见</view>
+  </view>
+  <view class="content" wx:if='{{tab==0}}'>
+    <view class="content-title">目前在应用的治疗是:</view>
+    <view class="index-bd">
+      <view class="kind-list">
+        <view class="kind-list-item">
+          <view  class="kind-list-item-hd {{opens[0]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="0">
+            <view class="kind-list-text">生物制剂</view>
+            <view class="kind-list-img {{opens[0]?'kind-list-img-show':''}}"></view>              
+          </view>
+          <view class="kind-list-item-bd {{opens[0]?'kind-list-item-bd-show':''}}">
+            <view class="navigator-box {{opens[0]?'navigator-box-show':''}}">
+              <view class="item">
+                <view class="item-title">肿瘤坏死因子抑制剂</view>
+                <checkbox-group bindchange="treat" data-title="肿瘤坏死因子抑制剂">
+                  <label class="check-lable-box">
+                    <view class="check-lable">依那西普</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="依那西普" checked="{{tutil.checked(treat,'肿瘤坏死因子抑制剂','依那西普')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">英夫利西单抗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="英夫利西单抗" checked="{{tutil.checked(treat,'肿瘤坏死因子抑制剂','英夫利西单抗')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">阿达木单抗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="阿达木单抗" checked="{{tutil.checked(treat,'肿瘤坏死因子抑制剂','阿达木单抗')}}"/>
+                    </view>
+                  </label>                                 
+                </checkbox-group>
+                <view class="other">
+                  <label>其他</label>
+                  <input type="text" bindblur="other" data-level="2" data-title="肿瘤坏死因子抑制剂" placeholder="请输入其他肿瘤坏死因子抑制剂" value="{{tutil.value(treat,'肿瘤坏死因子抑制剂',2)}}"></input>
+                </view>
+              </view>
+              <view class="item">
+                <view class="item-title">白介素17抑制剂</view>
+                <checkbox-group bindchange="treat" data-title="白介素17抑制剂">
+                  <label class="check-lable-box">
+                    <view class="check-lable">司库奇尤单抗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="司库奇尤单抗" checked="{{tutil.checked(treat,'白介素17抑制剂','司库奇尤单抗')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">依奇珠单抗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="依奇珠单抗" checked="{{tutil.checked(treat,'白介素17抑制剂','依奇珠单抗')}}"/>
+                    </view>
+                  </label>                              
+                </checkbox-group>
+                <view class="other">
+                  <label>其他</label>
+                  <input type="text" bindblur="other" data-level="2" data-title="白介素17抑制剂" placeholder="请输入其他白介素17抑制剂" value="{{tutil.value(treat,'白介素17抑制剂',2)}}"></input>
+                </view>
+              </view>
+              <view class="item">
+                <view class="item-title">白介素23抑制剂</view>
+                <checkbox-group bindchange="treat" data-title="白介素23抑制剂">
+                  <label class="check-lable-box">
+                    <view class="check-lable">古塞奇尤单抗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="古塞奇尤单抗" checked="{{tutil.checked(treat,'白介素23抑制剂','古塞奇尤单抗')}}"/>
+                    </view>
+                  </label>                             
+                </checkbox-group>
+                <view class="other">
+                  <label>其他</label>
+                  <input type="text" bindblur="other" data-level="2" data-title="白介素23抑制剂" placeholder="请输入其他白介素23抑制剂" value="{{tutil.value(treat,'白介素23抑制剂',2)}}"></input>
+                </view>
+              </view>
+              <view class="item">
+                <view class="item-title">白介素12/23抑制剂</view>
+                <checkbox-group bindchange="treat" data-title="白介素12/23抑制剂">
+                  <label class="check-lable-box">
+                    <view class="check-lable">乌司奴单抗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="乌司奴单抗" checked="{{tutil.checked(treat,'白介素12/23抑制剂','乌司奴单抗')}}"/>
+                    </view>
+                  </label>                               
+                </checkbox-group>
+              </view>
+              <view class="item">
+                <view class="other">
+                  <label>其他</label>
+                  <input type="text"  bindblur="other" data-level="1" data-title="生物制剂" placeholder="请输入其他生物制剂" value="{{tutil.value(treat,'其他生物制剂',0)}}"></input>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="kind-list-item">
+          <view  class="kind-list-item-hd {{opens[1]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="1">
+            <view class="kind-list-text">其他系统用药</view>
+            <view class="kind-list-img {{opens[1]?'kind-list-img-show':''}}"></view>              
+          </view>
+          <view class="kind-list-item-bd {{opens[1]?'kind-list-item-bd-show':''}}">
+            <view class="navigator-box {{opens[1]?'navigator-box-show':''}}">
+              <view class="item">
+                <view class="item-title">其他系统用药</view>
+                <checkbox-group bindchange="treat" data-title="其他系统用药">
+                  <label class="check-lable-box">
+                    <view class="check-lable">甲氨蝶呤</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="甲氨蝶呤" checked="{{tutil.checked(treat,'其他系统用药','甲氨蝶呤')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">环孢素</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="环孢素" checked="{{tutil.checked(treat,'其他系统用药','环孢素')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">阿维A</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="阿维A" checked="{{tutil.checked(treat,'其他系统用药','阿维A')}}"/>
+                    </view>
+                  </label>                                 
+                </checkbox-group>
+                <view class="other">
+                  <label>其他</label>
+                  <input type="text" bindblur="other" data-level="2" data-title="其他系统用药" placeholder="请输入其他系统用药" value="{{tutil.value(treat,'其他系统用药',2)}}"></input>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="kind-list-item">
+          <view  class="kind-list-item-hd {{opens[2]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="2">
+            <view class="kind-list-text">光疗</view>
+            <view class="kind-list-img {{opens[2]?'kind-list-img-show':''}}"></view>              
+          </view>
+          <view class="kind-list-item-bd {{opens[2]?'kind-list-item-bd-show':''}}">
+            <view class="navigator-box {{opens[2]?'navigator-box-show':''}}">
+              <view class="item">
+                <view class="item-title">光疗</view>
+                <checkbox-group bindchange="treat" data-title="光疗">
+                  <label class="check-lable-box">
+                    <view class="check-lable">全身NB-UVB治疗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="全身NB-UVB治疗" checked="{{tutil.checked(treat,'光疗','全身NB-UVB治疗')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">局部NB-UVB治疗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="局部NB-UVB治疗" checked="{{tutil.checked(treat,'光疗','局部NB-UVB治疗')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">准分子光或准分子激光治疗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="准分子光或准分子激光治疗" checked="{{tutil.checked(treat,'光疗','准分子光或准分子激光治疗')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">UVA1治疗</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="UVA1治疗" checked="{{tutil.checked(treat,'光疗','UVA1治疗')}}"/>
+                    </view>
+                  </label>                             
+                </checkbox-group>
+                <view class="other">
+                  <label>其他</label>
+                  <input type="text" bindblur="other" data-level="2" data-title="光疗" placeholder="请输入其他光疗" value="{{tutil.value(treat,'光疗',2)}}" placeholder-class='info-placeholder'></input>
+                </view>
+              </view>
+            </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="kind-list-item">
+          <view  class="kind-list-item-hd {{opens[3]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="3">
+            <view class="kind-list-text">外用药物</view>
+            <view class="kind-list-img {{opens[3]?'kind-list-img-show':''}}"></view>              
+          </view>
+          <view class="kind-list-item-bd {{opens[3]?'kind-list-item-bd-show':''}}">
+            <view class="navigator-box {{opens[3]?'navigator-box-show':''}}">
+              <view class="item">
+                <view class="item-title">外用药物</view>
+                <checkbox-group bindchange="treat" data-title="外用药物">
+                  <label class="check-lable-box">
+                    <view class="check-lable">糖皮质激素</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="糖皮质激素" checked="{{tutil.checked(treat,'外用药物','糖皮质激素')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">卡泊三醇</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="卡泊三醇" checked="{{tutil.checked(treat,'外用药物','卡泊三醇')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">他卡西醇</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="他卡西醇" checked="{{tutil.checked(treat,'外用药物','他卡西醇')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">他克莫司</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="他克莫司" checked="{{tutil.checked(treat,'外用药物','他克莫司')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">吡美莫司</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="吡美莫司" checked="{{tutil.checked(treat,'外用药物','吡美莫司')}}"/>
+                    </view>
+                  </label>
+                  <label class="check-lable-box">
+                    <view class="check-lable">卡泊三醇倍他米松复方制剂</view>
+                    <view class="">
+                      <checkbox class="checkbox" value="卡泊三醇倍他米松复方制剂" checked="{{tutil.checked(treat,'外用药物','卡泊三醇倍他米松复方制剂')}}"/>
+                    </view>
+                  </label>                               
+                </checkbox-group>
+                <view class="other">
+                  <label>其他</label>
+                  <input type="text" bindblur="other" data-level="2" data-title="外用药物" placeholder="请输入其他外用药物" value="{{tutil.value(treat,'外用药物',2)}}"></input>
+                </view>
+              </view>
+            </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    
+  <view class="content" wx:if='{{tab==1}}'>
+    <view class="advise-box">
+      <view class="advise-title">详细病情记录</view>
+      <textarea class="advise-textarea" bindblur="textarea" data-type="illness" placeholder="请输入您的病情绍" value="{{tutil.value(treat,'illness',1)}}"/>
+          
+    </view>
+  </view>
+  <view class="content" wx:if='{{tab==2}}'>
+    <view class="advise-box">
+      <view class="advise-title">您的建议意见很宝贵</view>
+        <textarea class="advise-textarea" bindblur="textarea" data-type="propose"  placeholder="请输入您的建议或意见"value="{{tutil.value(treat,'propose',1)}}"/>  
+    </view>
+  </view>
+  <view class="share" bindtap="submit">提交</view>
+</view>

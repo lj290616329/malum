@@ -1,0 +1,217 @@
+
+page{
+  background-color: #f5f5f5;
+}
+.main{
+  width:100%;
+  padding-bottom: 50px;
+} 
+.navbar{
+  position: fixed;
+  top:0;
+  width: 100%;
+  background-color: #fff;
+  color: #343434;
+  font-size: 1rem;
+  z-index:2;
+  height: 3rem;
+  line-height: 3rem;
+  display: flex;
+}
+
+.navbar_item{
+  height:100%;
+  flex:1;   
+  text-align: center;  
+}
+.navbar_item_active{
+border-bottom: 0.25rem solid #5369fd;
+position: relative;
+top: -0.25rem;
+color: #5369fd;
+}
+.content{
+  margin: 0 auto 10rem;
+  position:relative;
+  top:4rem;
+}
+.content-title{
+  padding:0 1rem;
+  margin:0 0 0.625rem;
+  color:#5369fd;
+}
+.index-bd {
+  padding: 0;
+}
+
+.navigator-box {
+  opacity: 0;
+  position: relative;
+  background-color: #FFFFFF;
+  line-height: 1.41176471;
+  transform: translateY(-50%);
+  transition: .3s;
+}
+.navigator-box-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.navigator {
+  padding: 0.625rem 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #010101;
+  opacity: .8;
+}
+.navigator:before {
+  content: " ";
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  right: 1rem;
+  height: 0.05rem;
+  border-top: 0.05rem solid #D8D8D8;
+  color: #D8D8D8;
+}
+.navigator:first-child:before {
+  display: none;
+}
+.navigator-text {
+  flex: 1;
+}
+.navigator-arrow {
+  opacity: 1;
+  position: relative;
+  color: #febf07;
+}
+.kind-list-item {
+  margin: 0.625rem 0;
+  background-color: #FFFFFF;
+  border-radius: 0.05rem;
+  overflow: hidden;
+}
+
+.kind-list-item:first-child {
+  margin-top: 0;
+}
+.kind-list-text{
+  flex: 1;
+}
+.kind-list-img { 
+  width: 0;
+  height: 0;
+  border-width: 0.5rem;
+  border-style: solid;
+  border-color:#5369fd transparent transparent transparent;  
+}
+.kind-list-img-show{
+  border-color: transparent transparent  #5369fd transparent;  
+}
+.kind-list-item-hd {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  transition: opacity .3s;
+  font-size: 1rem;
+}
+
+.kind-list-item-hd-show {
+  color: #5369fd;
+  position: relative;
+}
+
+.kind-list-item-hd-show::after {
+  position: absolute;
+  content: "";
+  border: 0.05rem solid #eee;
+  width: calc(100% - 2rem);
+  left: 1rem;
+  bottom: 0;  
+}
+
+.kind-list-item-bd {
+  height: 0;
+  overflow: hidden;
+}
+.kind-list-item-bd-show {
+  height: auto;
+  padding-bottom: 1rem;
+}
+
+/*checkbox未选中时样式 */
+.checkbox .wx-checkbox-input{ 
+  /* 自定义样式.... */
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+}
+  
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+.checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  border-radius: 50%;
+  border-color: #5369fd!important;
+}
+  
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+.checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  content: '';
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: #5369fd;   
+}
+.item{
+  padding:0.625rem 1rem;
+}
+.item-title{
+  font-weight: 550;
+  padding-left: 1rem;
+  position: relative;
+}
+.item-title::before{
+  position: absolute;
+  content: "";
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background:#febf07;
+  left: 0;
+  top: 0.5125rem;
+}
+
+.check-lable-box{
+  display:flex;
+  margin-top: 0.75rem;
+}
+.check-lable{
+  flex: 1;
+  margin-top: 0.3125rem;
+  color:#000;
+  opacity: 0.8;
+}
+.other{
+  display: flex;
+  margin-top: 0.75rem;
+  color:#000;
+  opacity: 0.8;
+}
+.other input{
+  flex:1;
+  padding-left: 0.3125rem;
+}
+
+.advise-box{
+  background-color:#FFF;
+  padding:0.625rem;
+}
+.advise-title{
+  padding:0.3125rem 0;
+  margin-bottom: 0.3125rem;
+  border-bottom:0.025rem solid #eee;
+}
+.advise-textarea{
+  width:100%;
+  height:12rem;
+}

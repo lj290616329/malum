@@ -1,0 +1,77 @@
+/*个人信息提交页面*/
+.form-container{
+  width: 94%;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  padding: 0;
+  background-color: #fff;
+}
+.form-title{
+  border-radius: 1rem 1rem 0 0;
+  padding: 0 1rem;
+  height: 3.2rem;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-around;
+  display: flex;
+  background-color: #5369fd;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+}
+.form-cells{
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+.form-cell{
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  min-height: 3.2rem;
+  border-bottom: 0.06rem solid #eee;
+  height: auto;
+}
+.form-cell_lable{
+  color: #010101;
+  opacity: 0.8;
+}
+.form-cell_val{
+  flex:1;
+}
+.form-cell_input{
+  flex: 1;
+  border: 0;
+  outline: 0;
+  -webkit-appearance: none;
+  background-color: transparent;
+  font-size: inherit;
+  padding-left: 1rem;
+  color: #010101;
+  opacity: 0.8;
+}
+
+.form-textarea_box{  
+  flex: 1;
+}
+.form-textarea_title{
+  line-height: 3.2rem;
+  min-height: 3.2rem;
+  flex: 1;
+}
+.form-textarea{
+  flex: 1;
+}
+.form-textarea textarea{
+  height: 8rem;
+  width: 100%;
+  display: flex;
+}
+.flex{
+  display: flex;
+}
+.flex1{
+  flex:1;
+}
+.radio-lable{
+  margin-left: 0.625rem;
+}

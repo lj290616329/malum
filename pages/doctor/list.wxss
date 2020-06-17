@@ -1,0 +1,10 @@
+@import "../../style/cells.wxss";
+
+.main{
+  width:96%;
+  margin: 30rpx auto;
+}
+.container{
+  padding:0;
+}
+

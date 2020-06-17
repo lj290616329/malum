@@ -1,0 +1,171 @@
+Page {font-size: 16px;height: 100%;margin: 0;padding: 0;background-color: #f5f5f5;}
+@media screen and (min-width: 300px) {
+  Page {
+      /* iPhone6的375px尺寸作为16px基准，414px正好18px大小, 600 20px */
+      font-size: calc(100% + 2 * (100vw - 300px) / 75);
+      font-size: calc(12px + 2 * (100vw - 300px) / 75);
+  }
+}
+@media screen and (min-width: 375px) {
+  Page {
+      /* iPhone6的375px尺寸作为16px基准，414px正好18px大小, 600 20px */
+      font-size: calc(100% + 2 * (100vw - 375px) / 39);
+      font-size: calc(16px + 2 * (100vw - 375px) / 39);
+  }
+}
+@media screen and (min-width: 414px) {
+  Page {
+      /* 414px-1000px每100像素宽字体增加1px(18px-22px) */
+      font-size: calc(112.5% + 4 * (100vw - 414px) / 586);
+      font-size: calc(18px + 4 * (100vw - 414px) / 586);
+  }
+}
+@media screen and (min-width: 600px) {
+  Page {
+      /* 600px-1000px每100像素宽字体增加1px(20px-24px) */
+      font-size: calc(125% + 4 * (100vw - 600px) / 400);
+      font-size: calc(20px + 4 * (100vw - 600px) / 400);
+  }
+}
+@media screen and (min-width: 1000px) {
+  Page {
+      /* 1000px往后是每100像素0.5px增加 */
+      font-size: calc(137.5% + 6 * (100vw - 1000px) / 1000);
+      font-size: calc(22px + 6 * (100vw - 1000px) / 1000);
+  }
+}
+icon {
+  vertical-align: middle;
+}
+.input-placeholder,.textarea-placeholder{
+  color: #b8b8b8;
+  font-size: small;
+}
+radio{ 
+  border-radius: 50%;
+  width: 40rpx;/* 最好是4的倍数，不然会不在中间 */
+  height: 40rpx;
+  border: 2rpx solid #7d96e0;/* 设置边框（外圆） */
+  font-size: 0;/* 让边框重合 */
+}
+
+radio .wx-radio-input{
+  vertical-align: middle;
+  border-radius: 50%;
+  width: 40rpx;
+  height: 40rpx; 
+  border: none;/* 替换边框（隐藏原有边框） */
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked::before{ 
+  border-radius: 50%;/* 圆角 */
+  width: 30rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 30rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  line-height: 40px;
+  text-align: center;
+  font-size:0; /* 对勾大小 30rpx */
+  color:#7d96e0; /* 对勾颜色 白色 */
+  background: #7d96e0;
+  transform:translate(-50%, -50%) scale(1);
+  -webkit-transform:translate(-50%, -50%) scale(1);
+}  
+/*确认取消按钮*/
+.btns{
+  margin: 1rem auto;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.btn{
+  flex: 1;
+  border-radius: 2rem;
+  margin: 0 0.625rem;  
+  height: auto;
+  padding: 0.625rem 0;
+  max-width: 12rem;
+}
+.btn_cancel{
+  border: 0.06rem solid #9a9a9a;
+  color: #9a9a9a;
+}
+.btn_primary{
+  background-color: #5369fd;
+  color: #fff;
+}
+/*错误提示*/
+.prompt-box{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  padding: 10rem 0 2rem;
+  text-align: center;
+  background-color: #eee;
+}
+.prompt-icon{
+  width: 10rem;
+  height: 10rem;
+  margin: 0 auto;
+}
+.prompt-icon image{
+  width: 100%;
+  height: 100%;
+}
+.prompt-msg{
+  color: #000000;
+  opacity: 0.5;
+  margin: 2rem auto 0;
+}
+.prompt-btn{
+  width: 12rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  border: 0.06rem solid #000000;
+  opacity: 0.5;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 3rem;
+  margin: 10rem auto 0;
+}
+.tag{
+  width:1rem;
+  height: 2rem;
+  position: absolute;
+  top:1.125rem;
+  left:2rem;
+  background-color:#febf07;
+  border-radius: 0 0 0.3125rem 0.3125rem;
+  z-index: 2; 
+}
+/*分享结果给医生*/
+.share{
+  width: 100%;
+  background-color: #5369fd;
+  color: #fff;
+  font-size: 1.125rem;
+  height: 3rem;
+  position: fixed;
+  z-index: 2;
+  text-align: center;
+  line-height: 3rem;
+  bottom: 0;
+}
+/*提示框*/
+.warn{
+  width: 96%;
+  position: fixed;
+  top: 0;
+  background-color: #e75e58;
+  font-size: 1rem;
+  color: #fff;
+  z-index: 99999;
+  text-align: center;
+  border-radius: 0.2rem;
+  min-height: 1.4rem;
+  line-height: 1.4rem;
+  left: 2%;
+}

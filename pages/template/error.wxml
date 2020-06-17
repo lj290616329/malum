@@ -1,0 +1,8 @@
+<view class="warn" wx:if="{{warn}}">{{warnMsg}}</view>
+<view class="prompt-box" wx:if="{{prompt}}">
+  <view class="prompt-icon">
+      <image src="/images/error.png"></image>
+  </view>
+  <view class="prompt-msg">{{promptMsg}}</view>
+  <view bindtap="back" class="prompt-btn">返回</view>
+</view>

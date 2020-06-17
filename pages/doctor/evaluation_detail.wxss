@@ -1,0 +1,15 @@
+@import "../../style/detail.wxss";
+@import "../../style/cells.wxss";
+
+.main{
+  width:100%;
+  padding-bottom: 3.625rem;
+}
+.content{
+  margin: 0 auto;
+  position:relative;
+  top:4rem;
+}
+.index-bd {
+  padding: 0 0 1.125rem;
+}

@@ -1,0 +1,84 @@
+<include src ="../template/error.wxml"/>
+<view class="main">
+  <view class="tag"></view>
+  <view class="container">
+    <view class="title">基本情况</view>
+    
+      <view class="item">
+        <text class='lbs'></text>
+        <text class="titles">身高(CM):</text>
+        <input class='time setData' bindblur="bindKeyInput" data-type="height" placeholder="请输入您的身高" type='number' value="{{height}}"></input>
+      </view>
+      <view class="item">
+        <text class='lbs'></text>
+        <text class="titles">体重(KG):</text>
+        <input class='time setData' bindblur="bindKeyInput" data-type="weight" placeholder="请输入您的体重" type='digit' value="{{weight}}"></input>
+      </view>
+      <view class="item">
+        <text class='lbs'></text>
+        <text class='titles'>银屑病首次发病日期</text>        
+        <picker mode="date" start="1915-01-01" end="new Date()" bindchange="chooseIncidenceTime" value="{{incidenceTime}}">
+          <view class="time pick {{incidenceTime==''?'':'setData'}}">
+            <view>{{incidenceTime?incidenceTime:'首次发病日期'}}</view>              
+          </view>
+        </picker>
+      </view>
+
+      <view class="item">
+        <text class='lbs'></text>
+        <text class='titles'>是否已经由皮肤科医生诊断为银屑病?</text>
+        <radio-group class="radio-group" bindchange="radioChoose1">
+          <label>
+            <radio class="radio" color="#fff" checked='{{checkvalue1=="1"?"checked":""}}' value="1"/>         
+            <text class="text1">是</text>       
+          </label>
+          <label>
+            <radio class="radio" color="#fff" checked='{{checkvalue1=="0"?"checked":""}}' value="0"/>
+            <text class="text1"> 否</text>           
+          </label>
+        </radio-group>
+      </view>
+      <view class='item {{disabled1? "cantchoose":""}}'>
+        <text class='lbs'></text>
+        <text class='titles'>诊断银屑病的时间</text>
+        <picker disabled="{{disabled1}}" mode="date" start="1915-01-01" end="new Date()" bindchange="chooseTime1" value="{{time1}}">
+          <view class='time pick {{setDate1? "setData":""}}'>
+            <view>{{time1?time1:'请选择诊断时间'}}</view>
+          </view>
+        </picker>
+
+      </view>
+      <view class="item">
+        <text class='lbs'></text>
+        <text class='titles'>是否已经由皮肤科或风湿免疫科医生诊断为银屑病性关节炎（或关节型银屑病）?</text>
+        <radio-group class="radio-group" bindchange="radioChoose2">
+          <label>
+            <radio class="radio" color="#fff" value="1" checked='{{checkvalue2=="1"?"checked":""}}'/>
+            <text class="text1">是</text>       
+          </label>
+          <label>
+            <radio class="radio" color="#fff" value="0" checked='{{checkvalue2=="0"?"checked":""}}'/>
+            <text class="text1"> 否</text>           
+          </label>
+        </radio-group>
+      </view>
+      <view class='item {{disabled2? "cantchoose":""}}'>
+        <text class='lbs'></text>
+        <text class='titles'>诊断银屑病性关节炎（或关节型银屑病）的时间</text>
+        
+        <picker disabled="{{disabled2}}" mode="date" start="1915-01-01" end="new Date()" bindchange="chooseTime2" value="{{time2}}" >
+          <view class='time pick {{setDate2? "setData":""}}'>
+            <view>{{time2?time2:'请选择诊断时间'}}</view>         
+          </view>
+        </picker>
+      
+      </view>
+      <view class="item">
+        <view class="btns">        
+          <view class='btn btn_primary'  bindtap='formSubmit'>
+            下一步
+          </view>
+        </view>      
+    </view>
+  </view>
+</view>

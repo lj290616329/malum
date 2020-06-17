@@ -1,0 +1,41 @@
+<include src ="../template/error.wxml"/>
+<view class="main" style="background-size:100% {{imgheight}}px">
+  <view bindtap="go" style="position:fixed;top:20rpx;left:20rpx;"><image style="width:1.6rem;height:1.28rem;" mode="scaleToFill" src="http://gridpic.tsing-tec.com/fde94337eb874f5ab755c539988d4259?v=1"></image></view>
+  <view class="personal" style="height:{{imgheight}}px">
+    <image class="headimg" style="height:{{headImgHeight}}px;width:{{headImgHeight}}px;margin:{{topMargin}}px auto 0;" src='{{headImg}}'></image>
+    <view class="nickname">{{nickName}}</view>
+    <view class="des">{{des}}</view>
+  </view>
+  <view class="container">    
+    <view class="grid_box">      
+      <view class="grid g1" bindtap="my_patient">
+          <image class="grid-icon" src="/images/my-patient.png"></image>
+          <view class="grid-text">我的病人</view>
+      </view>
+      <view class="grid" bindtap="info">
+          <image class="grid-icon" src="/images/my-information.png"></image>
+          <view class="grid-text">个人信息</view>
+      </view>
+    </view>
+    <view class="grid_box">
+      <view class="grid" bindtap="my_list">
+          <image class="grid-icon" src="/images/my-list.png"></image>
+          <view class="grid-text">待验证病历</view>
+      </view>
+      <view class="grid g4" bindtap="scan">
+          <image class="grid-icon" src="/images/my-richscan.png"></image>
+          <view class="grid-text">扫一扫</view>
+      </view>
+    </view>
+  </view>  
+</view>
+<view class="footer">
+  <view class="copyright">技术支持</view>
+  <view class="copyright">清华大学附属北京清华长庚医院皮肤科</view>
+  <view class="copyright">清华大学人工智能研究院</view>
+  <view class="copyright">清华大学网络行为研究所</view>
+</view>
+
+
+
+

@@ -1,0 +1,4 @@
+@import "../../style/form.wxss";
+.info-main{
+  width: 100%;
+}

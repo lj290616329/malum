@@ -1,0 +1,36 @@
+<wxs src="../../utils/util.wxs" module="util"/>
+<include src ="../template/error.wxml"/>
+<view class="main">
+  <view class="container">
+    <view class="lists">      
+      <block wx:for-items="{{lists}}" wx:key="{{item.id}}">
+        <view class="cells">
+          <view class="cell cell_head">
+            <view class="cell_lable white">{{tutil.formatDate(item.cdt ,'yyyy年MM月DD日')}}</view>
+            <view class="cell_val white">{{tutil.formatDate(item.cdt,'HH:mm')}}</view>
+          </view>
+          <view class="cell">
+            <view class="cell_lable">严重程度评分：</view>
+            <view class="cell_val orange">{{item.result_map.spasi}}</view>
+          </view>
+          <view class="cell">
+            <view class="cell_lable">生活质量评分：</view>
+            <view class="cell_val orange">{{item.result_map.qol}}</view>
+          </view>
+          <view class="cell">
+            <view class="cell_lable">关节炎评分：</view>
+            <view class="cell_val orange">{{item.result_map.psa}}</view>
+          </view>
+          <view class="cell cell_more blue" id="{{item.id}}" bindtap="detail">查看详情</view>
+        </view>
+      </block>
+      <view class="no-data-box" wx:if="{{pro}}">
+        <view class="no-data_icon">
+          <image src="/images/no-data.png"></image>
+        </view>
+        <view class="no-data_msg">没有符合条件的病历</view>
+        <view bindtap="back" class="no-data_btn">返回</view>
+      </view>
+  </view>
+</view>
+</view>
