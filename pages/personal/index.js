@@ -25,6 +25,7 @@ Page({
       headImg: userInfo.avatarUrl|| "/images/headimg.png",
       headImgHeight: width * 0.24,
       topMargin: width*0.12,
+      if_doctor:wx.getStorageSync('type')==2?true:false
     });
   },
   i_know(){
@@ -72,6 +73,11 @@ Page({
       })
     }    
   },
+  chatList(){
+    wx.navigateTo({
+      url: '/pages/chat/list?type=mobile'
+    })
+  },
   go_test:function(){   
     wx.navigateTo({
       url: '/pages/evaluation/form'
@@ -83,10 +89,10 @@ Page({
       show: false
     })
   },
-  map(){
+  news(){
     wx.navigateTo({
-      url: '/pages/ifram/index'
-    })
+      url: '/pages/news/index'
+    })  
   },
   onShareAppMessage: function () {
     return app.globalData.shareMessage

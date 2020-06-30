@@ -1,20 +1,12 @@
 // pages/details.js
 const app = getApp();
 var that;
-var log = require('../../utils/log.js');
 var api = require('../../config/api.js');
 var util = require('../../utils/util.js');
 Page({
   data: {
-    spasiList:['完全缓解','轻度','中度','重度','极重度'],
-    pestList:['不太可能','可能性小','有些可能','很有可能','非常可能'],
-    psaList:['无风险','低风险','中风险','高风险','极高风险'],
-    qolList:['无影响','轻微影响','相当影响','严重影响','极重影响'],
-    opens:[false,false,false,false,false],
-    evaluation:null,
+    opens:[],
     code:'',
-    doctor:null,
-    arraylife: ['毫无影响', '有轻微影响', '有相当程度影响', '有十分严重的影响', '有极度影响，几乎痛不欲生'],
     show:false,
     tab:0,
     codeHeight:'100%',
@@ -47,23 +39,27 @@ Page({
     var id = options.id;    
     util.request(api.PersonalEvaluationDetail+id,{},"get").then(function(result){
       console.log(result)
-      log.info(result);
-      if (result.errcode == 0) {
-        let evaluation = result.data;
-        evaluation.result_map = JSON.parse(evaluation.result||"{}");
+      console.log(result);
+      if (result.code == 0) {
         that.setData({
-          evaluation: evaluation,
-          code: "data:image/png;base64," + result.code.replace(/[\r\n]/g, ""),
+          detail:result.data,
+          code:"data:image/png;base64," + result.data.src.replace(/[\r\n]/g, "")
         })
-        if (result.doctor){
-          that.setData({
-            doctor: result.doctor
-          })
-        }
-      } else {
-        util.error(that,result.errmsg);
       }
     });   
+  },
+  chat(e){
+    const id = e.currentTarget.dataset.id;
+    util.request(api.ChatByDid+id,{},"get").then(function(result){
+      if(result.code==0){
+        wx.navigateTo({
+          url: '/pages/chat/chat?id='+result.data
+        })
+      }else{
+        util.warn(that,result.msg);
+      }
+    })
+
   },
   share_result:function(){
     that.setData({

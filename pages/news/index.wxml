@@ -1,0 +1,38 @@
+<wxs src="../../utils/Tools.wxs" module="util"/>
+<scroll-view class="news-tags" scroll-x>
+  <block wx:for="{{tags}}" wx:for-item="tag">
+    <view class="news-tag {{tid==tag.id?'news-tags-active':''}}" data-id="{{tag.id}}" data-index="{{index}}" bindtap="changeTag">{{tag.name}}</view>
+  </block>
+</scroll-view>
+<scroll-view class="news-content" scroll-with-animation="true" scroll-y="true" scroll-top="{{sTop}}" bindscroll="scroll" bindscrolltolower="more">
+  <view class="item-box">
+    <block  wx:for="{{lists}}" wx:for-item="article">
+      <view class="item" bindtap="detail" data-id="{{article.id}}">
+        <view class="item-head">
+          <image src="{{article.pic}}"></image>
+        </view>
+        <view class="item-content">
+          <view class="item-username">{{article.title}}<view class="item-time">{{util.timeago(article.createTime)}}</view></view>
+          <view class="item-desc">{{article.description||''}}</view>
+          <view class="item-desc">阅读:{{article.hits||0}}</view>
+        </view>
+      </view>
+    </block>
+
+
+    <view class="prompt-box" wx:if="{{lists.length==0}}">
+      <view class="prompt-icon">
+          <image src="/images/no-data.png"></image>
+      </view>
+      <view class="prompt-msg">该分类暂未添加任何文章</view>
+      <view class="prompt-msg">请切换其他类型查看</view>
+    </view>
+
+    <view class="sigma-content" wx:if="{{lists.length>0&&end}}">
+      <view class="sigma-middle-line">
+        <text class="sigma-line-text">我是有底线的</text>
+      </view>
+    </view>
+
+  </view>
+</scroll-view>

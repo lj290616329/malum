@@ -1,49 +1,24 @@
 <wxs src="../../utils/Tools.wxs" module="util"/>
 <include src ="../template/error.wxml"/>
 <view class="main">
-  <view class="container">
-    <view class="lists">      
-      <block wx:for-items="{{lists}}" wx:key="{{item.id}}">
-        <view class="cells">
-          <view class="cell cell_head">
-            <view class="cell_lable white">{{tutil.formatDate(item.cdt ,'yyyy年MM月DD日')}}</view>
-            <view class="cell_val white">{{tutil.formatDate(item.cdt,'HH:mm')}}</view>
-          </view>
-          <view class="cell">
-            <view class="cell_lable">严重程度评分：</view>
-            <view class="cell_val orange">{{item.result_map.spasi}}</view>
-          </view>
-          <view class="cell">
-            <view class="cell_lable">生活质量评分：</view>
-            <view class="cell_val orange">{{item.result_map.qol}}</view>
-          </view>
-          <view class="cell">
-            <view class="cell_lable">关节炎评分：</view>
-            <view class="cell_val orange">{{item.result_map.psa}}</view>
-          </view>
-          <view class="cell cell_more blue" id="{{item.id}}" bindtap="detail">查看详情</view>
+  <view class="item-box"  wx:for='{{lists}}' wx:for-index='key'>
+    <view class="item-title">{{key}}</view>
+    <block wx:for='{{item}}' wx:for-item='evaluation'>
+        <view class="item" bindtap="detail" data-id="{{evaluation.id}}">
+            <view class="item_hd">
+                <view class="item_hd_title">{{evaluation.createTime}}</view>
+            </view>
+            <view class="item_hd item_hd_ft">
+                <text class="item_hd_val">查看详细</text>
+            </view>
         </view>
-      </block>
-      <view class="no-data-box" wx:if="{{pro}}">
-        <view class="no-data_icon" wx:if="{{pro}}">
-            <image src="/images/no-data.png"></image>
-        </view>
-        <view class="no-data_msg">您暂未提交任何测试病历</view>
-        <view bindtap="cancel" class="no-data_btn">返回</view>
-      </view>
-    </view>
+    </block>
   </view>
-</view>
-<view class='mask' wx:if='{{show}}'>
-  <view class='modal-content'>
-    <view class="logo-box">
-      <image class="logo" src="/images/logo.png"></image>
+  <view class="prompt-box" wx:if="{{noData}}">
+    <view class="prompt-icon">
+        <image src="/images/no-data.png"></image>
     </view>
-    <view class='title1'>温馨提示</view>
-    <text class='title2'>您尚未提交个人信息,是否现在填写?</text>    
-    <view class='modal-btn-wrapper'>
-        <button class='cancel-btn'  bindtap='cancel'>否</button>
-        <button class='confirm-btn' bindtap="info">是</button>
-    </view>
+    <view class="prompt-msg">您暂未提交任何测试病历</view>
+    <view bindtap="back" class="prompt-btn">返回</view>
   </view>
 </view>

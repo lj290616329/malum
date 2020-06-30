@@ -4,22 +4,26 @@ var api = require('../../config/api.js');
 var util = require('../../utils/util.js');
 Page({
   data: {
-    lists: [],
-    show:false,
-    pro: false
+    lists: {}
   },
   onLoad: function (option) {
     console.log('info.js onload');
     that = this;
-    
-    //获取历史记录判断是否填写个人信息    
     util.request(api.PersonalEvaluationList,{},"get").then(function(result){
       console.log(result);
-    });
-       
+      let data = result.data;
+      let noData = false;
+      if(Object.keys(data).length==0){
+        noData = true;
+      };
+      that.setData({
+        noData:noData,
+        lists:data
+      })
+    });       
   },  
   detail:function(e){
-    const id = e.currentTarget.id;
+    let id = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: '/pages/personal/evaluation_detail?id='+id
     })
@@ -29,7 +33,7 @@ Page({
       url: '/pages/personal/info'
     })
   },
-  cancel: function () {
+  back: function () {
     util.back();
   },
   onShareAppMessage: function () {

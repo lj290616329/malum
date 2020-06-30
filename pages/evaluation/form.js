@@ -21,7 +21,6 @@ Page({
   },
   submitForm(e) {
     const params = e.detail.value
-    console.log(params);
     /**
      * 存在返回上一页的情况
      * 所以验证规则在这里进行重新匹配
@@ -56,15 +55,42 @@ Page({
     }
     let pageNo = that.data.pageNo;
     if(pageNo==that.data.questionList.length-1){
-      util.request(api.EvaluationForm,JSON.stringify(Object.values(that.data.result)),"post").then(res=>{
-        console.log(res);
-      })
-      console.log("提交")
+      //最后一页,可以提交
+      //step1 验证是否授权//验证是否提交个人信息
+      wx.getSetting({
+        withSubscriptions:true,
+        success: (res) => {
+          console.log(res);
+          //未授权,显示授权窗口          
+          if (!res.authSetting['scope.userInfo']) { 
+            that.setData({
+              auth:true
+            })
+          }else{
+            if(wx.getStorageSync('ifAuth')){              
+              util.subscribe().then(resp=>{
+                util.request(api.EvaluationForm,JSON.stringify(Object.values(that.data.result)),"post").then(res=>{
+                  if(res.code==0){
+                    that.setData({
+                      showCode:true,
+                      code:"data:image/png;base64," + res.data.replace(/[\r\n]/g, "")
+                    })
+                  }
+                })
+              }
+                
+              )              
+            }else{
+              that.setData({
+                auth:true
+              })
+            }
+          }
+        }
+      })   
     }else{
       that.showData(pageNo+1);
     }
-    console.log(Object.values(that.data.result));
-    console.log("pass")
   },
   radionChange(e){
     console.log(e);
@@ -197,52 +223,66 @@ Page({
   },
   onLoad: function(options) {
     that = this;   
-    /*
-    wx.showLoading({
-      title: '登录中~~',
-      mask:true
-    })
-    */ 
-    console.log("index--onload");
-
-
+    console.log("form--onload");
+    var width = wx.getSystemInfoSync().windowWidth;
     util.request(api.QuestionList,{},"get").then(res => {
       let data = res.data;
       that.setData({
-        questionList:data
+        questionList:data,
+        codeHeight: width * 0.8 * 0.8 + "px"
       })
       that.showData(0);
     })
-
-    
-    wx.getSetting({
-      success: (res) => {
-        console.log(res);
-        /*
-        if (!res.authSetting['scope.userInfo']) { 
-          wx.reLaunch({
-            url: '/pages/index/main'
-          })
-        }else{
-          util.login().then(function(result){
-            wx.hideLoading();
-            log.info(result);
-            if(result.code===0){
-              wx.setStorageSync('token', result.data);      
-            }else{
-              wx.reLaunch({
-                url: '/pages/index/main'
-              })
-            }
-          }).catch(function(res){
-            wx.hideLoading();
-            wx.reLaunch({
-              url: '/pages/index/main'
-            })
-          })
-        }*/
+  },
+  getDatas: function(e) {
+    log.info(e);
+    console.log(e);
+    wx.showLoading({
+      mask:true,
+      title: '授权中~~',
+    })
+    if (e.detail.errMsg !== 'getUserInfo:ok') {
+      wx.hideLoading();
+      if (e.detail.errMsg === 'getUserInfo:fail auth deny') {
+        util.prompt(that,"授权失败");
+        return false;
       }
-    }) 
-     
+      return false;
+    };
+    util.getCode().then(function(res){
+      wx.hideLoading();
+      return util.request(api.WxAuth,JSON.stringify({
+        code: res,
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv,
+        signature: e.detail.signature,
+        rawData: e.detail.rawData
+      }),"post");
+    }).then(function(result){
+      console.log(result)
+      wx.hideLoading();
+      //授权成功
+      if(result.code==0){
+        that.setData({
+          auth:false
+        })
+        wx.setStorageSync('token', result.data.token);
+      }else{
+        util.warn(that,"授权失败,请稍后再试!");
+      }
+    }).catch(function(err){
+      console.log(2)
+      util.warn(that,"授权失败,请稍后再试!");
+      wx.hideLoading();
+    });
+  },
+  cancle(){
+    that.setData({
+      auth:false,
+      ifAuth:false
+    })
+  },
+  back(){
+    util.back();
   }
 })

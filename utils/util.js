@@ -141,6 +141,88 @@ function auth(){
   })
 };
 
+function subscribe(){
+  return new Promise(function (resolve, reject) {
+    let tmpIds = [
+      "iNbbQStWha87QupCzPHTmFU54qBed2aMkzB-dv0fDAo",
+      "Uw13UmFttdBbvz3YDHNQ1VghuFaoUUFOa2oEH3c-nqE"
+    ];
+    if (wx.requestSubscribeMessage) {
+      wx.requestSubscribeMessage({
+        tmplIds: tmpIds,
+        success (res) {
+          console.log(res);
+          console.log("获取success");
+          let acceptTmpList = [];
+          for(let i = 0; i < tmpIds.length; i++ ){
+            let tmpId = tmpIds[i];
+            if(cres[tmpId] == "accept"){
+              acceptTmpList.push(tmpId);
+            }
+          }
+          wx.request({
+            url: api.SubscribeMessage,
+            data: acceptTmpList.join(","),
+            method: 'POST',
+            contentType: 'application/json;charset=UTF-8',
+            header: {
+              'content-type': 'application/json',
+              'token':wx.getStorageSync('token')||""
+            },
+            success: function (result) {
+              if(result.statusCode==200){
+                resolve(result.data);
+              }else{
+                reject(result);
+              }                            
+            },fail: function (err) {
+              reject(err)
+              console.log("failed")
+            }
+          })
+        },
+        fail(fres){
+          console.log(fres)
+          console.log("fail");
+          resolve("fail");
+        },
+        complete(cres){
+          console.log(cres);
+          console.log("complete")
+          let acceptTmpList = [];
+          for(let i = 0; i < tmpIds.length; i++ ){
+            let tmpId = tmpIds[i];
+            if(cres[tmpId] == "accept"){
+              acceptTmpList.push(tmpId);
+            }
+          }
+          wx.request({
+            url: api.SubscribeMessage,
+            data: acceptTmpList.join(","),
+            method: 'POST',
+            contentType: 'application/json;charset=UTF-8',
+            header: {
+              'content-type': 'application/json',
+              'token':wx.getStorageSync('token')||""
+            },
+            success: function (result) {
+              if(result.statusCode==200){
+                resolve(result.data);
+              }else{
+                reject(result);
+              }                            
+            },fail: function (err) {
+              reject(err)
+              console.log("failed")
+            }
+          })
+         }
+      });
+    }else{
+      resolve("result.data");
+    }
+  })
+}
 /**
  * 封装微信的的request
  * token过期重新获取
@@ -173,7 +255,7 @@ function request(url, data = {}, method = "GET") {
             //需要登录后才可以操作
             return auth().then((result) => {
               console.log("auth"+result);
-              wx.setStorageSync('token', result.data);
+              wx.setStorageSync('token', result.data.token);
               request(url,data,method).then(function(res){
                 resolve(res);
               });             
@@ -218,5 +300,6 @@ module.exports = {
   getUserInfo,
   request,
   warn,
-  back
+  back,
+  subscribe
 }

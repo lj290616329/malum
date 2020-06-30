@@ -11,9 +11,6 @@ Page({
     placeholder:"",
     value:"",
     cancel:false,
-    pro:false,
-    error:false,
-    errmsg:''
   },
   showInput:function(e){
     console.log(e);
@@ -44,32 +41,22 @@ Page({
     this.setData({
       value:val
     })
-    this.getlist({name:val});
+    if(/^[\u4e00-\u9fa5]+$/i.test(val)){
+      this.getlist({name:val});
+    }    
   },
   getlist: function (options){
-    var name = options.name === undefined ? '' : options.name;
-
-    util.request(api.MyPatient,{name:name},"get").then(function(result){
-      log.info(result);
-      console.log(result.errcode);
-      if (result.errcode == 0) {
-        var results = result.data;
-        if (results != "" && results.length>0){
-          that.setData({
-            lists: results,
-            pro: false
-          })
-        }else{
-          that.setData({
-            lists: results,
-            pro: true
-          })
-        }          
+    var name = options.name||'';
+    util.request(api.MyPatient,name,"POST").then(function(result){
+      if(result.data.length>0){
+        that.setData({
+          lists:result.data,
+          noData:false
+        })
       }else{
         that.setData({
-          error:true,
-          errmsg: result.errmsg
-        })          
+          noData:true
+        })
       }
     })
   },
@@ -83,9 +70,6 @@ Page({
     wx.navigateTo({
       url: '/pages/doctor/list?pid='+id
     })  
-  },
-  onShow: function () {
-
   },
   back:function(){
     util.back();

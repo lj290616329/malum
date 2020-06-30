@@ -4,7 +4,7 @@
     <view class="weui-search-bar__form">
         <view class="weui-search-bar__box">
             <icon class="weui-icon-search_in-box" type="search" size="12"></icon>
-            <input type="text" class="weui-search-bar__input" placeholder="{{placeholder}}" value="{{value}}" focus="{{focus}}" bindblur="inputBlur" bindinput="inputChange" />
+            <input type="text" class="weui-search-bar__input" placeholder="{{placeholder}}" value="{{value}}" focus="{{focus}}"  bindinput="inputChange" />
             <view class="weui-icon-clear" wx:if="{{value.length > 0}}" bindtap="clearInput">
                 <icon type="clear" size="12"></icon>
             </view>
@@ -26,17 +26,16 @@
         <view class="weui-media-box__bd">
           <view class="weui-media-box__title">姓名:{{item.name}}</view>
           <view class="weui-media-box__desc">性别:{{item.sex===0?'未知':item.sex===1?'男':'女'}}</view>
-          <view class="weui-media-box__desc">发病时间:{{tutil.formatDate(item.incidenceTime ,'yyyy年MM月DD日')}}</view>
         </view>
         <view class="weui-badge" wx:if="{{item.sum>1}}">{{item.sum}}</view>
       </view>
     </block>
-    <view class="no-data-box" wx:if="{{pro}}">
-      <view class="no-data_icon" wx:if="{{pro}}">
+    <view class="prompt-box" wx:if="{{noData}}">
+      <view class="prompt-icon">
           <image src="/images/no-data.png"></image>
       </view>
-      <view class="no-data_msg">没有符合条件的病人</view>
-      <view bindtap="back" class="no-data_btn">返回</view>
+      <view class="prompt-msg">没有符合条件的病人</view>
+      <view bindtap="back" class="prompt-btn">返回</view>
     </view>
   </view>
 </view>

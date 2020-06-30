@@ -1,0 +1,39 @@
+<!--index.wxml-->
+<wxs src="../../utils/Tools.wxs" module="util"/>
+<include src ="../template/error.wxml"/>
+<template name="text">
+  <view class="chat-text">
+    {{content}}
+  </view>
+</template>
+<template name="img">
+  <view class="chat-text">
+   <image mode="widthFix" bindtap="preview" data-src="{{util.imgSrc(content)}}" src="{{util.imgSrc(content)}}"></image>
+  </view>
+</template>
+<template name="file">
+  <view class="chat-text" bindtap="down" data-src="{{util.fileSrc(content)}}">文件信息,点击下载</view>
+</template>
+
+<view class="main">
+  <scroll-view class="chat-main" scroll-with-animation="true" scroll-y="true" scroll-into-view="{{toLast}}">
+    <block wx:for="{{chatLogs}}" wx:for-index="index" wx:for-item="item">
+      <view class="chat-li {{item.mine?'chat-mine':''}}" id="item{{index+1}}">
+        <view class="chat-user">
+          <image src="{{item.avatar}}"></image>
+          <view class="name">{{item.timestamp}}</view>
+        </view>
+        <template is="{{util.msgType(item.content)}}" data="{{...item}}"/>
+      </view>
+    </block>
+  </scroll-view>
+  
+
+<view class="chat-footer">
+  <view class="chat-send">
+    <input class="send-input" value="{{inputVal}}" type="text" confirm-type="send" bindconfirm="send" autocomplete="off"/>
+    <image src="../../images/add.png" class="send-pic" bindtap="addPic"></image>
+  </view>
+</view>
+
+</view>

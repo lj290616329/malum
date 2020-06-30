@@ -1,113 +1,39 @@
-@import "../../style/cells.wxss";
 .main{
-  width:96%;
-  margin: 30rpx auto;
+  width:100%;
+  padding: 1rem 0;
 }
-.container{
-  padding:0;
+.item-box{
+  background-color:#f5f5f5;
 }
-
-/* 弹出框*/
-.mask{
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+.item-title{
+   font-size: 0.75rem;
+   padding: 0.3125rem 1rem;
 }
-
-.modal-content{
-  position: fixed;
-  z-index: 5000;
-  top: 50%;
-  left: 0;
-  right: 0;
-  width:80%;
-  margin:0 auto;
-  -webkit-transform: translate(0, -50%);
-  transform: translate(0, -50%);
-  background-color: #FFFFFF;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: column;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  flex-direction: column;
-  max-height: 90%;
-  border-radius: 30rpx;
+.item{
+   display: flex;
+   background-color: #fff;
+   align-items: center;
+   padding: 1rem;
+   border-bottom: 0.06rem solid #eee;
 }
-.logo-box{
-  position: absolute;
-  top: -85rpx;
-  width: 100%;
-  display: block;
-  z-index:5001;
+.item-box .item:last-child{
+  border-bottom: none;
 }
-.logo{  
-  border-radius: 50%;
-  width:170rpx;
-  height:170rpx;
-  margin: 0 auto;
-  display: block;
-  z-index:5001;
+.item_hd{
+   flex:1;
 }
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.item_hd_ft{
+   text-align: right;
 }
-.modal-btn-wrapper{  
-  display: flex;
-  margin: 25px 0;
+.item_hd_title{
+   font-size: 1rem;
+   color: #252525;
 }
-.img_box{
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;   
+.item_hd_des{
+   font-size: 0.625rem;
+   color:#616161;
+   line-height: 2;
 }
-.img_box image{
-  width: 100%;
-}
-.cancel-btn, .confirm-btn{
-  width: 35%;
-  height: 70rpx; 
-  line-height: 70rpx;
-  text-align: center;
-  font-size: 32rpx;
-  color: #000000;
-  border-radius: 35rpx;
-	border: solid 3rpx #000000;
-	opacity: 0.4;
-}
-.confirm-btn {
-  background-color: #5369fd;
-  color: #ffffff;  
-  border: none;
-  opacity: 1;
-}
-.title1 {  
-  margin-top: 95rpx;
-  font-weight: bolder;
-  text-align: center;  
-  font-size: 40rpx;	
-	font-stretch: normal;
-	line-height: 40rpx;	
-	color: #000000;
-	opacity: 0.8;
-}
-.title2{ 
-  text-align: center;  
-  font-size: 34rpx;	
-	font-stretch: normal;
-	line-height: 34rpx;	
-	color: #000000;
-	opacity: 0.6;
-  margin: 15rpx auto;
-  padding: 0 25rpx;
+.item_hd_val{
+   font-size: 0.8rem;
 }

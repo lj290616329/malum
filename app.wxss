@@ -154,6 +154,7 @@ radio .wx-radio-input.wx-radio-input-checked::before{
   text-align: center;
   line-height: 3rem;
   bottom: 0;
+  border-bottom: 1rem solid #5369fd;
 }
 /*提示框*/
 .warn{

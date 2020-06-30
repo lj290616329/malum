@@ -15,5 +15,13 @@ App({
         }
       }
     })
+  },
+  globalData: {
+    newsLists:{},
+    shareMessage: {
+      title: '胆囊息肉慢病智慧管理系统',
+      imageUrl: '/images/share_img.png',
+      path: '/pages/index/index',
+    } 
   }
 })

@@ -4,6 +4,7 @@
   <view class="navbar">
     <view bindtap="changeTab" data-index="0" class="navbar_item {{tab==0 ? 'navbar_item_active':''}}">病人信息</view>
     <view bindtap="changeTab" data-index="1" class="navbar_item {{tab==1 ? 'navbar_item_active':''}}">测试详细</view>
+    <view bindtap="changeTab" data-index="2" class="navbar_item {{tab==2 ? 'navbar_item_active':''}}" wx:if="{{detail.results}}">处理结果</view>
   </view>
   <view class="content" wx:if='{{tab==0}}'>
     <view class="index-bd">
@@ -13,336 +14,73 @@
             <view class="cell_lable">
                 姓名
             </view>
-            <view class="cell_val">{{information.name}}</view>
-          </view>
-          <view class="cell">
-            <view class="cell_lable">
-                微信
-            </view>
-            <view class="cell_val">{{information.wx}}</view>
+            <view class="cell_val">{{detail.information.name}}</view>
           </view>
           <view class="cell">
             <view class="cell_lable">
                 年龄
             </view>
-            <view class="cell_val">{{information.age}}</view>
+            <view class="cell_val">{{detail.information.age}}</view>
           </view>
           <view class="cell">
             <view class="cell_lable">
                 性别
             </view>
-            <view class="cell_val">{{information.sex==1?'男':'女'}}</view>
-          </view>
-          <view class="cell">
-            <view class="cell_lable">
-                教育程度
-            </view>
-            <view class="cell_val">{{arrayeducation[information.education]}}</view>
+            <view class="cell_val">{{detail.information.sex==1?'男':'女'}}</view>
           </view>       
         </view>
       </view>
     </view>
-  </view> 
-  <view class="content" wx:else>
+    <view class="share" bindtap="chat" data-id="{{detail.information.id}}"  wx:if="{{detail.information.id}}">联系病人</view>
+  </view>
+  
+
+  <view class="content" wx:elif="{{tab==1}}">
     <view class="index-bd">
       <view class="kind-list">
-        <view class="kind-list-item">
-            <view  class="kind-list-item-hd {{opens[0]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="0">
-              <view class="kind-list-text">基本情况</view>
-              <view class="kind-list-img {{opens[0]?'kind-list-img-show':''}}"></view>              
+        <block wx:for="{{detail.contents}}" wx:for-item="content">
+          <view class="kind-list-item">
+            <view  class="kind-list-item-hd {{opens[index]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="{{index}}">
+              <view class="kind-list-text">{{content.name}}</view>
+              <view class="kind-list-img {{opens[index]?'kind-list-img-show':''}}"></view>              
             </view>
-            <view class="kind-list-item-bd {{opens[0]?'kind-list-item-bd-show':''}}">
-              <view class="navigator-box {{opens[0]?'navigator-box-show':''}}">
-                  <view class="navigator">
-                    <view class="navigator-text">身高</view>
-                    <view class="navigator-arrow">{{evaluation.height}}</view>
-                  </view>
-                  <view class="navigator">
-                    <view class="navigator-text">体重</view>
-                    <view class="navigator-arrow">{{evaluation.weight}}</view>
-                  </view>
-                  <view class="navigator">
-                    <view class="navigator-text">银屑病首次发病日期</view>
-                    <view class="navigator-arrow">{{evaluation.incidenceTime}}</view>
-                  </view>                
-                  <view class="navigator">
-                    <view class="navigator-text">是否已经由皮肤科医生诊断为银屑病</view>
-                    <view class="navigator-arrow">{{evaluation.checkvalue1==1?'是':'否'}}</view>
-                  </view>
-                  <view class="navigator" wx:if="{{evaluation.time1}}">
-                    <view class="navigator-text">诊断银屑病的时间</view>
-                    <view class="navigator-arrow">{{tutil.formatDate(evaluation.time1 ,'YY-MM-DD')}}</view>
-                  </view>
-                  
-                  <view class="navigator">
-                    <view class="navigator-text">是否已经由皮肤科或者风湿免疫科医生诊断为银屑病关节炎(或关节型银屑病)</view>
-                    <view class="navigator-arrow">{{evaluation.checkvalue2==1?'是':'否'}}</view>
-                  </view>
-                  <view class="navigator" wx:if="{{evaluation.time2}}">
-                    <view class="navigator-text">诊断银屑病性关节炎或关节型银屑病的时间</view>
-                    <view class="navigator-arrow">{{tutil.formatDate(evaluation.time2 ,'YY-MM-DD')}}</view>
+            <view class="kind-list-item-bd {{opens[index]?'kind-list-item-bd-show':''}}">
+              <view class="navigator-box {{opens[index]?'navigator-box-show':''}}">
+                  <view class="navigator" wx:for="{{content.questionList}}" wx:for-item="question">
+                    <view class="navigator-text">{{question.title}}</view>
+                    <view class="navigator-arrow">{{question.value}}</view>
                   </view>
               </view>
             </view>
           </view>
-          
-        <view class="kind-list-item">
-            <view  class="kind-list-item-hd {{opens[1]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="1">
-              <view class="kind-list-text">评估表1</view>
-              <view class="kind-list-img {{opens[1]?'kind-list-img-show':''}}"></view>              
-            </view>
-            <view class="kind-list-item-bd {{opens[1]?'kind-list-item-bd-show':''}}">
-              <view class="navigator-box {{opens[1]?'navigator-box-show':''}}">                
-                  <view class="navigator">
-                    <view class="navigator-text">面积(A)</view>
-                    <view class="navigator-arrow">{{evaluation.datet1}}级</view>
-                  </view>
-                  <view class="navigator">
-                    <view class="navigator-text">红斑(E)</view>
-                    <view class="navigator-arrow">{{evaluation.datet2}}级</view>
-                  </view>                  
-                  <view class="navigator">
-                    <view class="navigator-text">鳞屑(S)</view>
-                    <view class="navigator-arrow">{{evaluation.datet3}}级</view>
-                  </view>
-                  <view class="navigator">
-                    <view class="navigator-text">厚度(T)</view>
-                    <view class="navigator-arrow">{{evaluation.datet4}}级</view>
-                  </view>
-                  <view class="navigator">
-                    <view class="navigator-text">近一周对生活影响</view>
-                    <view class="navigator-arrow">{{arraylife[evaluation.level]}}</view>
-                  </view>
-              </view>
-            </view>
-          </view>
-          
-        <view class="kind-list-item">
-          <view  class="kind-list-item-hd {{opens[2]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="2">
-            <view class="kind-list-text">评估表2</view>
-            <view class="kind-list-img {{opens[2]?'kind-list-img-show':''}}"></view>              
-          </view>
-          <view class="kind-list-item-bd {{opens[2]?'kind-list-item-bd-show':''}}">
-            <view class="navigator-box {{opens[2]?'navigator-box-show':''}}">                
-                <view class="navigator">
-                  <view class="navigator-text">曾经有过一个或多个关节肿胀</view>
-                  <view class="navigator-arrow">{{evaluation.if_1==1?'是':'否'}}</view>
-                </view>
-                <view class="navigator">
-                  <view class="navigator-text">有医生告诉过有关节炎</view>
-                  <view class="navigator-arrow">{{evaluation.if_2==1?'是':'否'}}</view>
-                </view>                  
-                <view class="navigator">
-                  <view class="navigator-text">指(趾)甲上有凹点</view>
-                  <view class="navigator-arrow">{{evaluation.if_3==1?'是':'否'}}</view>
-                </view>
-                <view class="navigator">
-                  <view class="navigator-text">后脚跟疼</view>
-                  <view class="navigator-arrow">{{evaluation.if_4==1?'是':'否'}}</view>
-                </view>
-                <view class="navigator">
-                  <view class="navigator-text">有一个手指(足趾)不明原因肿痛</view>
-                  <view class="navigator-arrow">{{evaluation.if_5==1?'是':'否'}}</view>
-                </view>
-                <view class="navigator">
-                  <view class="navigator-text">口服阿维A,他扎罗汀等维A酸类药物</view>
-                  <view class="navigator-arrow">{{evaluation.if_6==1?'是':'否'}}</view>
-                </view>
-                <view class="navigator">
-                  <view class="navigator-text">患有虹膜炎,睫状体炎或脉络膜炎</view>
-                  <view class="navigator-arrow">{{evaluation.if_7==1?'是':'否'}}</view>
-                </view>
-                                
-            </view>
-          </view>
-        </view>
-        <!--测评结果-->  
-        <view class="kind-list-item">
-          <view  class="kind-list-item-hd {{opens[3]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="3">
-            <view class="kind-list-text">测评结果</view>
-            <view class="kind-list-img {{opens[3]?'kind-list-img-show':''}}"></view>              
-          </view>
-          <view class="kind-list-item-bd {{opens[3]?'kind-list-item-bd-show':''}}">
-            <view class="navigator-box {{opens[3]?'navigator-box-show':''}}">                
-              <view class="navigator">
-                <view class="navigator-text">严重程度评分</view>
-                <view class="navigator-arrow">{{evaluation.result1}}</view>
-              </view>
-              <view class="navigator">
-                <view class="navigator-text">银屑病关节炎得分</view>
-                <view class="navigator-arrow">{{evaluation.result2}}</view>
-              </view>
-              <view class="navigator">
-                <view class="navigator-text">银屑病关节炎风险评估得分</view>
-                <view class="navigator-arrow">{{evaluation.result3}}</view>
-              </view>
-              <view class="weui-article__section">
-                <view class="weui-article__h3">评估结果</view>
-                <view class="weui-article__p">
-                    {{evaluation.result_map.spasi_s}}
-                </view>
-                <view class="weui-article__p">
-                    {{evaluation.result_map.qol_s}}
-                </view> 
-                <view class="weui-article__p">
-                    {{evaluation.result_map.pest_s}}
-                </view>                 
-              </view>
-              <view class="weui-article__section">
-                <view class="weui-article__h3">防控建议</view>
-                <view class="weui-article__p">
-                    {{evaluation.result_map.suggest}}
-                </view>
-                <view class="weui-article__p">
-                    {{evaluation.result_map.pest_suggest}}
-                </view>                
-              </view>
-              <view class="weui-article__section">
-                <view class="weui-article__h3">风险提示</view>
-                <view class="weui-article__p">
-                    {{evaluation.result_map.psa_s}}
-                </view>
-                <view class="weui-article__section" wx:if="{{evaluation.result_map.risks.length>0}}">
-                  <view class="weui-article__h4">风险点</view>
-                  <view class="weui-article__p" style="padding-left:0;" wx:for="{{evaluation.result_map.risks}}" wx:for-index="i">{{i+1}}:{{item}}</view>              
-                </view>
-              </view>
-            </view>
-          </view>
-        </view>
-
-        <!--用药反馈-->
-        <view class="kind-list-item" wx:if="{{evaluation.treats.length>0}}">
-          <view  class="kind-list-item-hd {{opens[4]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="4">
-            <view class="kind-list-text">用药反馈</view>
-            <view class="kind-list-img {{opens[4]?'kind-list-img-show':''}}"></view>              
-          </view>
-          <view class="kind-list-item-bd {{opens[4]?'kind-list-item-bd-show':''}}">
-            <view class="navigator-box {{opens[4]?'navigator-box-show':''}}">
-              <view class="weui-article__section" wx:for="{{evaluation.treats}}" wx:for-item="treat">
-                <view class="weui-article__h3">{{treat.title}}</view>
-                <view class="weui-article__p" wx:for="{{treat.check}}" wx:for-item="check">
-                    {{check}}
-                </view>            
-              </view>
-            </view>         
-          </view>
-        </view>
-
-        <!--病情记录-->
-        <view class="kind-list-item" wx:if="{{evaluation.illness!=null}}">
-          <view  class="kind-list-item-hd {{opens[5]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="5">
-            <view class="kind-list-text">病情记录</view>
-            <view class="kind-list-img {{opens[5]?'kind-list-img-show':''}}"></view>              
-          </view>
-          <view class="kind-list-item-bd {{opens[5]?'kind-list-item-bd-show':''}}">
-            <view class="navigator-box {{opens[5]?'navigator-box-show':''}}">
-              <view class="weui-article__section">
-                {{evaluation.illness}}
-              </view>
-            </view>         
-          </view>
-        </view>
-
-        <!--Caspar表-->
-        <view class="kind-list-item">
-          <view  class="kind-list-item-hd {{opens[6]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="6">
-            <view class="kind-list-text">Caspar表</view>
-            <view class="kind-list-img {{opens[6]?'kind-list-img-show':''}}"></view>              
-          </view>
-          <view class="kind-list-item-bd {{opens[6]?'kind-list-item-bd-show':''}}">
-            <view class="navigator-box {{opens[6]?'navigator-box-show':''}}">
-              <view class="table">
-                <view class="tr">
-                    <view class="th w1">类别</view>
-                    <view class="th w3">评分内容</view>
-                    <view class="th w1">判断</view>
-                    <view class="th w1">分值</view>
-                </view>
-                <view class="tr" >
-                    <view class="td w1">主要标准</view>
-                    <view class="td w3 align_left">炎性关节病(关节、脊柱、肌腱)</view>
-                    <view class="td w1">
-                      <picker bindchange='handle' data-index='0' range="{{handleArray}}">
-                        <view>{{handleResult[0]===null?'请选择':handleResult[0]===1?'是':'否'}}</view>                                                              </picker>
-                    </view>
-                    <view class="td w1">{{handleResult[0]===null?'':handleResult[0]}}</view>
-                </view>
-                <view class="tr" >
-                    <view class="td w1 no_boder"></view>
-                    <view class="td w3 align_left">1. 现发银屑病、银屑病既往史或家族史的证据（现发银屑病赋值2分，其他表现则赋值1分）*。</view>
-                    <view class="td w1">
-                      <picker mode="multiSelector" bindchange="bindMultiPickerChange" value="{{multiIndex}}" bindcolumnchange="bindMultiPickerColumnChange" range="{{multiArray}}">
-                        <view>{{handleResult[1]===null?'请选择':handleResult[1]>0?'是':'否'}}</view>                                                              </picker>
-                    </view>
-                    <view class="td w1">{{handleResult[1]===null?'':handleResult[1]}}</view>
-                </view>
-                <view class="tr" >
-                  <view class="td w1 no_boder"></view>
-                  <view class="td w3 align_left">2. 就诊时可见典型的银屑病指甲改变，包括甲剥离、顶针样改变、过度角化等表现。</view>
-                  <view class="td w1">
-                    <picker bindchange='handle' data-index='2' range="{{handleArray}}">
-                      <view>{{handleResult[2]===null?'请选择':handleResult[2]===1?'是':'否'}}</view>                                                              </picker>
-                  </view>
-                  <view class="td w1">{{handleResult[2]===null?'':handleResult[2]}}</view>
-                </view>
-                <view class="tr" >
-                  <view class="td w1 no_boder">次要标准</view>
-                  <view class="td w3 align_left">3. 类风湿因子检查结果为阴性。（类风湿因子可用除凝胶法外的其他方法检测，但最好采用酶联免疫吸附试验或比浊法，按当地实验室检查的参考值范围）</view>
-                  <view class="td w1">
-                    <picker bindchange='handle' data-index='3' range="{{handleArray}}">
-                      <view>{{handleResult[3]===null?'请选择':handleResult[3]===1?'是':'否'}}</view>                                                              </picker>
-                  </view>
-                  <view class="td w1">{{handleResult[3]===null?'':handleResult[3]}}</view>
-                </view>
-                <view class="tr" >
-                <view class="td w1 no_boder"></view>
-                    <view class="td w3 align_left">4. 具有整个指趾肿胀的指趾炎表现，或由风湿病医师记录的指趾炎病史。</view>
-                    <view class="td w1">
-                    <picker bindchange='handle' data-index='4' range="{{handleArray}}">
-                      <view>{{handleResult[4]===null?'请选择':handleResult[4]===1?'是':'否'}}</view>                                                              </picker>
-                  </view>
-                  <view class="td w1">{{handleResult[4]===null?'':handleResult[4]}}</view>
-                </view>
-                <view class="tr" >
-                <view class="td w1"></view>
-                    <view class="td w3 align_left">5. 影像学证据显示关节周围新骨形成，表现为手足平片可见关节周围异常骨化(而非骨赘形成)。 </view>
-                    <view class="td w1">
-                    <picker bindchange='handle' data-index='5' range="{{handleArray}}">
-                      <view>{{handleResult[2]===null?'请选择':handleResult[5]===1?'是':'否'}}</view>                                                              </picker>
-                  </view>
-                  <view class="td w1">{{handleResult[5]===null?'':handleResult[5]}}</view>
-                </view>
-                <view class="tr" >
-                  <view class="td w1">诊断标准</view>
-                    <view class="td w3 align_left">主要标准符合伴有次要标准3分或3分以上即符合CASPAR诊断标准。目前诊断符合情况为(得分为次要标准之和):</view>
-                    <view class="td w1">{{evaluation.ifEnd?(evaluation.sum>=3&&evaluation.num1==1)?'符合':'不符合':'未完成'}}</view>
-                    <view class="td w1">{{evaluation.sum===null?'未完成':evaluation.sum}}</view>
-                </view>
-              </view>
-              <view class='btns'>
-                <view class='btn btn_cancel' bindtap='cancel'>取消</view>
-                <view class='btn btn_primary' bindtap='formSubmit'>保存</view>
-              </view> 
-            </view>
-          </view>
-        </view>
-
-        <!--意见建议-->
-        <view class="kind-list-item" wx:if="{{evaluation.suggest!=null}}">
-          <view  class="kind-list-item-hd {{opens[7]?'kind-list-item-hd-show':''}}" bindtap="kindToggle" data-index="7">
-            <view class="kind-list-text">意见建议</view>
-            <view class="kind-list-img {{opens[7]?'kind-list-img-show':''}}"></view>              
-          </view>
-          <view class="kind-list-item-bd {{opens[7]?'kind-list-item-bd-show':''}}">
-            <view class="navigator-box {{opens[7]?'navigator-box-show':''}}">
-              <view class="weui-article__section">
-                {{evaluation.suggest}}
-              </view>
-            </view>         
-          </view>
-        </view>          
+        </block>             
       </view>
     </view>  
-  </view>   
+  </view>
+  <view class="content" wx:else>
+    <view class="index-bd">
+      <view class="kind-list">        
+        <view class="kind-list-item">
+          <view  class="kind-list-item-hd kind-list-item-hd-show">
+            <view class="kind-list-text">处理结果</view>        
+          </view>
+          <view class="kind-list-item-bd kind-list-item-bd-show">
+            <view class="navigator-box navigator-box-show">
+                <view class="navigator">
+                    <view class="weui-article__section" wx:for="{{detail.results}}" wx:for-item="result">
+                      <view class="weui-article__h3">{{result.title}}</view>
+                      <view class="weui-article__p">
+                          {{result.value}}
+                      </view>              
+                    </view>
+                  </view>
+            </view>
+          </view>
+        </view>           
+      </view>
+    </view> 
+  </view>
+
+  
+     
 </view>

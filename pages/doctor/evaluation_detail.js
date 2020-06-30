@@ -5,22 +5,8 @@ var util = require('../../utils/util.js');
 var that;
 Page({
   data: {
-    opens: [false, false, false, false, false],
-    evaluation: null,
-    information: null,
-    arraylife: ['毫无影响', '有轻微影响', '有相当程度影响', '有十分严重的影响', '有极度影响，几乎痛不欲生'],
-    arrayeducation: ['文盲', '小学', '初中', '高中', '大学', '研究生以上'],
-    show: false,
-    tab: 0,
-    handleArray: ['否', '是'],
-    multiArray: [['否','是'],[0]],
-    handleResult:['','','','','',''],
-    show:false,
-    num: [[0],[1,2]],
-    multiIndex:[0,0],
-    error:false,
-    errmsg:"",
-    id:0
+    opens: [],
+    tab:0
   },
   changeTab: function (e) {
     /* 左右切换*/
@@ -106,26 +92,24 @@ Page({
     
     util.request(api.DoctorEvaluationDetail + id,{},"get").then(function(result){
       console.log(result);
-      if (result.errcode == 0) {
-        let evaluation = result.data;
-        evaluation.result_map = JSON.parse(evaluation.result||"{}");
+      if (result.code == 0) {
         that.setData({
-          id:id,
-          evaluation: evaluation,
-          information: result.information,
-          handleResult: [evaluation.num1, evaluation.num2, evaluation.num3, evaluation.num4, evaluation.num5, evaluation.num6]
+          detail:result.data
         })
-        if (result.doctor) {
-          that.setData({
-            doctor: result.doctor
-          })
-        }
-      } else {
-        util.prompt(that, result.errmsg);
       }
-    }).catch(function(err){
-      console.log(err);
-    })    
+    })   
+  },
+  chat(e){
+    const id = e.currentTarget.dataset.id;
+    util.request(api.ChatByDid+id,{},"get").then(function(result){
+      if(result.code==0){
+        wx.navigateTo({
+          url: '/pages/chat/chat?id='+result.data
+        })
+      }else{
+        util.warn(that,result.msg);
+      }
+    })
   },
   back: function () {
     util.back();

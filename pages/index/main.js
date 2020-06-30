@@ -1,7 +1,6 @@
 //main.js
 //获取应用实例
 const app = getApp();
-var log = require('../../utils/log.js');
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
 var that;
@@ -25,7 +24,6 @@ Page({
     })
   },  
   getDatas: function(e) {
-    log.info(e);
     console.log(e);
     wx.showLoading({
       mask:true,
@@ -52,18 +50,19 @@ Page({
       console.log(result)
       wx.hideLoading();
       if(result.code==0){
-                //是否医生
-        if (result.if_doctor) {
-          app.globalData.doctor = result.doctor;
-          wx.reLaunch({
-            url: '/pages/doctor/index'
-          })
-        } else {
+        //是否医生
+        wx.setStorageSync('token', result.data.token);
+        wx.setStorageSync('ifAuth', result.data.ifAuth);
+        wx.setStorageSync('type', result.data.type);
+        if(result.data.type==1){                
           wx.reLaunch({
             url: '/pages/personal/index'
-          })
+          }) 
+        }else{
+          wx.reLaunch({
+            url: '/pages/doctor/index'
+          }) 
         }
-        wx.setStorageSync('token', result.token);
       }else{
         console.log(1)
         util.warn(that,"授权失败,请稍后再试!");
@@ -81,7 +80,7 @@ Page({
       show: false
     });
     wx.navigateTo({
-      url: '/pages/evaluation/form1',
+      url: '/pages/evaluation/form',
     })
   },
   onShareAppMessage: function () {

@@ -30,6 +30,11 @@ Page({
       url: '/pages/personal/index'
     })
   },
+  chatList(){
+    wx.navigateTo({
+      url: '/pages/chat/list?type=pc'
+    })
+  },
   info: function () {
     wx.navigateTo({
       url: '/pages/doctor/info'
@@ -42,13 +47,18 @@ Page({
   },
   my_list: function () {
     wx.navigateTo({
-      url: '/pages/doctor/list?ifEnd=0'
+      url: '/pages/doctor/list?ifEnd=true'
     })
   },
   geren:function(){
     app.globalData.if_information =true;
     wx.navigateTo({
       url: '/pages/personal/index'
+    })
+  },
+  news(){
+    wx.navigateTo({
+      url: '/pages/news/index'
     })
   },
   scan: function () {
@@ -60,14 +70,14 @@ Page({
         var result = res.result;
         console.log(result)
         var token = result;
-        util.request(api.EvaluationBind,{token:token},"GET").then(function(result){
+        util.request(api.EvaluationBind,token,"post").then(function(result){
           console.log(result);
-          if (result.errcode == 0) {
+          if (result.code == 0) {
             wx.navigateTo({
-              url: '/pages/doctor/evaluation_detail?id=' + result.data.id,
+              url: '/pages/doctor/evaluation_detail?id=' + result.data,
             })
           } else {
-            util.prompt(that, result.data.errmsg);
+            util.prompt(that, result.msg);
           }
         }).catch((err) => {
           if(err.data.status==500){

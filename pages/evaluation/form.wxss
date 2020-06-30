@@ -1,4 +1,5 @@
 /**index.wxss**/
+@import "../../style/dialog.wxss";
 page{
   box-sizing: content-box;
 }

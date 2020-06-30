@@ -2,47 +2,49 @@
 <view class="info-main">
   <view class="form-container">
     <view class="form-title">个人信息</view>
-    <view class="form-cells">
-      <view class="form-cell">
-        <view class="form-cell_lable">
-          <text decode='true'>姓&emsp;&emsp;名:</text>
-        </view>
-        <view class="form-cell_val">
-          <input class='form-cell_input' bindblur="bindKeyInput" data-type="name" data-index="0" placeholder="请输入您的真实姓名" type='text' value="{{name}}"></input>
-        </view>
-      </view>
-      
-      <view class="form-cell">
-        <view class="form-cell_lable"><text  decode='true'>电&emsp;&emsp;话:</text></view>
-        <view class="form-cell_val">
-          <input class='form-cell_input' bindblur="bindKeyInput" data-type="phone" data-index="2" placeholder="请输入您的电话号码" type='number' value="{{phone}}"></input>
-        </view>        
-      </view>
-      <view class="form-cell">
-        <view class="form-cell_lable"><text  decode='true'>擅&emsp;&emsp;长:</text></view>
-        <view class="form-cell_val">
-          <input class='form-cell_input' bindblur="bindKeyInput" data-type="goodAt" data-index="3" type='text' placeholder="请输入您的擅长方向" value="{{goodAt}}"/>
-        </view>        
-      </view>
-      <view class="form-cell">
-        <view class="form-cell_lable"><text  decode='true'>个人简介:</text></view>
-        <view class="form-cell_val">
-          <input class='form-cell_input' bindblur="bindKeyInput" data-type="description" data-index="3" type='text' placeholder="请输入您的个人简介" value="{{description}}"/>
-        </view>        
-      </view>
-      <view class="form-cell">
-        <view class="form-textarea_box">
-          <view class="form-textarea_title">详细介绍:</view>
-          <view class="form-textarea">
-            <textarea bindblur="bindTextAreaBlur" placeholder="请输入您的详细介绍" value="{{introduce}}" />
+    <form bindsubmit="submitForm">   
+      <view class="form-cells">
+        <view class="form-cell">
+          <view class="form-cell_lable">
+            <text decode='true'>姓&emsp;&emsp;名:</text>
+          </view>
+          <view class="form-cell_val">
+            <input class='form-cell_input' name="name" placeholder="请输入您的真实姓名" type='text' value="{{doctor.name}}"></input>
           </view>
         </view>
-      </view> 
-            
-      <view class='btns'>
-        <view class='btn btn_cancel' bindtap='cancel'>取消</view>
-        <view class='btn btn_primary' bindtap='formSubmit'>保存</view>
-      </view>      
-    </view>
+        
+        <view class="form-cell">
+          <view class="form-cell_lable"><text  decode='true'>电&emsp;&emsp;话:</text></view>
+          <view class="form-cell_val">
+            <input class='form-cell_input' name="phone" placeholder="请输入您的电话号码" type='number' value="{{doctor.phone}}"></input>
+          </view>        
+        </view>
+        <view class="form-cell">
+          <view class="form-cell_lable"><text  decode='true'>擅&emsp;&emsp;长:</text></view>
+          <view class="form-cell_val">
+            <input class='form-cell_input' bindblur="bindKeyInput" name="goodAt" type='text' placeholder="请输入您的擅长方向" value="{{doctor.goodAt}}"/>
+          </view>        
+        </view>
+        <view class="form-cell">
+          <view class="form-cell_lable"><text  decode='true'>个人简介:</text></view>
+          <view class="form-cell_val">
+            <input class='form-cell_input' name="description" type='text' placeholder="请输入您的个人简介" value="{{doctor.description}}"/>
+          </view>        
+        </view>
+        <view class="form-cell">
+          <view class="form-textarea_box">
+            <view class="form-textarea_title">详细介绍:</view>
+            <view class="form-textarea">
+              <textarea name="introduce" placeholder="请输入您的详细介绍" value="{{doctor.introduce}}" />
+            </view>
+          </view>
+        </view> 
+              
+        <view class='btns'>
+          <view class='btn btn_cancel' bindtap='back'>取消</view>
+          <button class='btn btn_primary' formType="submit">保存</button>
+        </view>
+      </view>
+    </form>      
   </view>
 </view>

@@ -55,6 +55,47 @@
           </view>
         </form>
     </scroll-view>
-    
-  
+</view>
+
+<view class='mask' wx:if='{{auth}}'>
+  <view class='modal-content'>
+    <view class="modal-logo">
+      <image class="logo" src="/images/logo.png"></image>
+    </view>
+    <view class='modal-title'>您还未授权</view>
+    <view class='modal-des'>请授权后再进行提交?</view>
+    <view class='modal-btns'>
+        <button class='modal-btn btn_cancel'  bindtap='cancle'>否</button>
+        <button class='modal-btn btn_primary' open-type="getUserInfo" bindgetuserinfo="getDatas">是</button>
+    </view>    
+  </view>
+</view>
+
+<view class='mask' wx:if='{{ifAuth}}'>
+  <view class='modal-content'>
+    <view class="modal-logo">
+      <image class="logo" src="/images/logo.png"></image>
+    </view>
+    <view class='modal-title'>温馨提示</view>
+    <view class='modal-des'>您尚未提交个人信息,是否现在填写?</view>
+    <view class='modal-btns'>
+        <button class='modal-btn btn_cancel'  bindtap='cancle'>否</button>
+        <button class='modal-btn btn_primary' bindtap="info">是</button>
+    </view>    
+  </view>
+</view>
+<view class='mask' wx:if='{{showCode}}'>
+  <view class='modal-content'>
+    <view class="modal-logo">
+      <image class="logo" src="/images/logo.png"></image>
+    </view>
+    <view class='modal-title'>提交成功</view>
+    <view class='modal-des'>请将此二维码出示给医生</view>
+    <view class="code-img" style="width:80%;margin:0 auto;height:{{codeHeight}};background-color: #f5f5f5;">
+      <image style="width:90%;padding:5%;height:90%" src="{{code}}"></image>
+    </view>
+    <view class='modal-btns bt'>
+        <button class='modal-btn btn_cancel'  bindtap='back'>返回</button>
+    </view>    
+  </view>
 </view>

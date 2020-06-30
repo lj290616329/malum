@@ -124,9 +124,8 @@ Page({
         if (pages.length > 1) {
           var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
           beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-            show: false
+            ifAuth: false
           })
-          beforePage.onLoad();//触发父页面中的方法
         }
         wx.showToast({
           title: '保存成功',

@@ -1,0 +1,5 @@
+<view class="main">
+  <view class="article-title" wx:if="{{article.ifShowTitle}}">{{article.title}}</view>
+  <image class="article-pic" width="100%" src="{{article.pic}}" wx:if="{{article.ifShowPic}}"></image>
+  <rich-text nodes="{{article.content}}"></rich-text>
+</view>

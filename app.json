@@ -9,11 +9,14 @@
     "pages/doctor/patient",
     "pages/doctor/info",
     "pages/evaluation/form",
-    "pages/evaluation/result",
     "pages/personal/evaluation_detail",
     "pages/personal/history",
     "pages/personal/index",
-    "pages/personal/info"
+    "pages/personal/info",
+    "pages/news/index",
+    "pages/news/detail",
+    "pages/chat/list",
+    "pages/chat/chat"
   ],
   "window": {
     "backgroundTextStyle": "light",
