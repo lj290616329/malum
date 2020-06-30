@@ -18,20 +18,14 @@ Page({
         }else{
           util.login().then(function(result){
             wx.hideLoading();
-            console.log(result);
-            if(result.code===0){
-              wx.setStorageSync('token', result.data.token);
-              wx.setStorageSync('ifAuth', result.data.ifAuth);
-              wx.setStorageSync('type', result.data.type);
-              if(result.data.type==1){                
-                wx.reLaunch({
-                  url: '/pages/personal/index'
-                }) 
-              }else{
-                wx.reLaunch({
-                  url: '/pages/doctor/index'
-                }) 
-              }
+            
+            if(result.code===0){             
+              
+              wx.reLaunch({
+                url: '/pages/personal/index'
+              })
+              
+              wx.setStorageSync('token', result.data);      
             }else{
               wx.reLaunch({
                 url: '/pages/index/main'

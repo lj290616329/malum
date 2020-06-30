@@ -1,0 +1,152 @@
+/**index.wxss**/
+page{
+  box-sizing: content-box;
+}
+.q-scroll{
+  background-color: #f5f5f5;
+  width: 100%;
+  -webkit-box-sizing: border-box!important;
+  -moz-box-sizing: border-box!important;
+  box-sizing: border-box!important;
+  height: 100vh;
+  -webkit-overflow-scrolling: touch;
+}
+.q-speed{  
+  height: 0.3rem;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.q-item-list{
+  margin-top: 1rem;
+  background-color: #fff;
+  padding: 0.3rem 1rem;
+}
+
+
+@keyframes prompt{
+	0%{
+    border-style:solid;
+    border-color: red;
+    border-width: 0.03rem 0;
+	}
+	20%{
+		border:none;
+	}
+	40%{
+		border-style:solid;
+    border-color: red;
+    border-width: 0.03rem 0;
+	}
+	60%{
+		border:none;
+	}
+	80%{
+		border-style:solid;
+    border-color: red;
+    border-width: 0.03rem 0;
+	}
+	100%{
+		border:none;
+	}
+}
+.q-prompt{  
+  -webkit-animation:prompt 1s linear;
+  -o-animation:prompt 1s linear;
+  -moz-animation:prompt 1s linear;
+  animation:prompt 1s linear;
+	border:none;
+}
+
+.q-item-title{
+  font-size: 1.2rem;
+}
+.q-item{
+  margin-top: 0.625rem;
+}
+.q-tag{
+  display: inline-block;
+  color: red;
+  margin-left: 0.25rem;
+  font-weight: bolder;
+}
+.q-title{
+  display: inline-block;
+  font-size: 1.125rem;
+}
+.q-option{
+  margin-bottom: 0.625rem;
+}
+.q-option-item{
+  height: 2.5rem;
+  font-size: 1rem;
+  border-top: 0.06rem solid #eee;
+}
+.q-radio-group{
+  /*display: flex;
+  flex:1;  */
+}
+.q-radio-group label{
+  display: flex;
+  border-top: 0.06rem solid #eee;
+  align-items: center;
+  font-size: 1rem;
+  height: 2.5rem;
+}
+
+.q-radio-group text{
+  margin-left:1rem;
+}
+
+/*checkbox未选中时样式 */
+.checkbox .wx-checkbox-input{ 
+  width: 1rem;
+  height: 1rem;  
+  border-color: #7d96e0!important;
+}
+  
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+.checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  color:#7d96e0;
+}
+
+.q-checkbox label{
+  /*display: inline-block;*/
+  display: block;
+  border-top: 0.06rem solid #eee;
+  height: 2.5rem;
+  font-size: 1rem;
+  line-height: 2.5rem;
+}
+.q-checkbox text{
+  display: inline-block;
+  margin-left:1rem;
+  vertical-align: middle;
+}
+.q-title-box{
+  /*display: flex;*/
+  margin-bottom: 0.3125rem;
+  height: 2rem;
+  line-height: 2rem;
+}
+.q-input{
+  line-height: 2.5rem;
+  position: relative;
+}
+.q-picker{
+  position: absolute;
+  right: 0.4rem;
+  top: 0.7rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border: #aaa solid;
+  border-width: 0.1rem 0.1rem 0 0;
+  transform: rotate(135deg);
+}
+.q-textarea{
+  width: 100%;
+  height: 6rem;
+}

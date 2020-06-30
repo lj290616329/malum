@@ -16,16 +16,13 @@ Page({
     console.log("doctor-index.js----onload");
     var width = wx.getSystemInfoSync().windowWidth;
     console.log(width);
-    var userInfo = app.globalData.userInfo||{};
-    var doctor = app.globalData.doctor||{};
-    console.log(doctor)
+    var userInfo = wx.getStorageSync('userInfo')||{};
     this.setData({
       imgheight: width * 0.64,
-      nickName: doctor.name ?  doctor.name : userInfo.name,
-      headImg: userInfo.headimgurl ? userInfo.headimgurl : "/images/headimg.png",
+      nickName: userInfo.nickName || "",
+      headImg: userInfo.avatarUrl|| "/images/headimg.png",
       headImgHeight: width * 0.24,
       topMargin: width * 0.12,
-      des: doctor.description ? doctor.description : "暂未填写个人简介",
     })
   },
   go(){

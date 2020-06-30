@@ -1,0 +1,60 @@
+<wxs src="../../utils/Tools.wxs" module="Tools"/>
+<include src ="../template/error.wxml"/>
+<!--单选题模板-->
+<template name="radio">
+  <radio-group name="{{question.groupSort}}{{question.sort}}" class="q-radio-group" bindchange="radionChange" data-id="{{question.id}}" data-groupSort="{{question.groupSort}}" data-groupName="{{question.groupName}}" data-title="{{question.title}}" data-sort="{{question.sort}}">
+    <label class="q-option-item" wx:for="{{question.optionList}}" wx:for-item="option">
+      <radio color="#fff" value="{{option}}" checked="{{Tools.checked(result,question.id,option)}}"/>         
+      <text>{{option}}</text>
+    </label>
+  </radio-group>
+</template>
+<!--多选题模板-->
+<template name="checkbox">
+  <checkbox-group name="{{question.groupSort}}{{question.sort}}" class="q-checkbox" bindchange="checkboxChange" data-id="{{question.id}}" data-groupSort="{{question.groupSort}}" data-groupName="{{question.groupName}}" data-title="{{question.title}}" data-sort="{{question.sort}}">
+    <label class="q-option-item" wx:for="{{question.optionList}}" wx:for-item="option">
+      <checkbox class="checkbox" value="{{option}}" checked="{{Tools.checked(result,question.id,option)}}"/>
+      <text>{{option}}</text>
+    </label>
+  </checkbox-group>
+</template>
+<!--input填空题模板-->
+<template name="input">
+  <input class="q-option-item q-input" name="{{question.groupSort}}{{question.sort}}" placeholder="请输入{{question.title}}" type="{{question.inputType||'text'}}" bindblur="inputChange" data-id="{{question.id}}" data-groupSort="{{question.groupSort}}" data-groupName="{{question.groupName}}" data-title="{{question.title}}" data-sort="{{question.sort}}" value="{{Tools.val(result,question.id)}}"></input>
+</template>
+<!--下拉选择-->
+<template name="picker">
+  <picker class="q-option-item q-input" name="{{question.groupSort}}{{question.sort}}" mode="{{question.pickerMode}}" bindchange="pickerChange" range="{{question.optionList}}" data-id="{{question.id}}" data-groupSort="{{question.groupSort}}" data-groupName="{{question.groupName}}" data-title="{{question.title}}" data-sort="{{question.sort}}" value="{{Tools.val(result,question.id)}}"  data-value="{{question.optionList}}" data-mode="{{question.pickerMode}}">
+      {{Tools.val(result,question.id)||'请选择'}}<view class="q-picker"></view>
+  </picker>
+</template>
+<!--多行输入-->
+<template name="textarea">
+  <textarea class="q-option-item q-textarea" name="{{question.groupSort}}{{question.sort}}" value="{{Tools.val(result,question.id)}}" placeholder="请输入{{title}}"/>
+</template>
+<view class="main">
+  <progress class="q-speed" percent="{{((pageNo+1)/questionList.length)*100}}" activeColor="#7d96e0"></progress>
+    <scroll-view class="q-scroll" scroll-y="true" scroll-into-view="{{toIndex}}">
+        <form bindsubmit="submitForm">
+          <block wx:for="{{questionList[pageNo].questionList}}" wx:for-item="question">
+            <view class="q-item-list {{(toIndex=='item'+question.groupSort+question.sort && warn)?'q-prompt':''}}" wx:if="{{Tools.ifShow(question.ifNeed,result,question.needs)}}" id="item{{question.groupSort}}{{question.sort}}"> 
+              <view class="q-item">
+                <view class="q-title-box">
+                  <view class="q-title">{{question.showTitle}}</view><view class="q-tag" wx:if="{{question.required}}">*</view>
+                </view>
+                <view class="q-option"> 
+                  <template is="{{question.type}}" data="{{...{result:result,question:question} }}"/>
+                </view>
+              </view>
+            </view>      
+          </block>      
+          <view class="btns">
+            <button wx:if="{{pageNo>0&&pageNo<questionList.length}}" type="button" class='btn btn_primary' bindtap="prev">上一页</button>
+            <button wx:if="{{pageNo<questionList.length-1}}" class='btn btn_primary' formType="submit">下一页</button>
+            <button wx:if="{{pageNo==questionList.length-1}}"class='btn btn_primary' formType="submit">提交</button>
+          </view>
+        </form>
+    </scroll-view>
+    
+  
+</view>

@@ -1,4 +1,4 @@
-<wxs src="../../utils/util.wxs" module="util"/>
+<wxs src="../../utils/Tools.wxs" module="util"/>
 <include src ="../template/error.wxml"/>
 <view class="main">
   <view class="navbar">

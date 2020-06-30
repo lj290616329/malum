@@ -17,20 +17,15 @@ Page({
     console.log(know);
     var width = wx.getSystemInfoSync().windowWidth;
     console.log(width);
-    var userInfo = app.globalData.userInfo||{};
+    var userInfo = wx.getStorageSync('userInfo')||{};
     this.setData({
       know:know,
       imgheight: width * 0.62,
-      nickName: userInfo.nickname ? userInfo.nickname :"",
-      headImg: userInfo.headimgurl ? userInfo.headimgurl : "/images/headimg.png",
+      nickName: userInfo.nickName || "",
+      headImg: userInfo.avatarUrl|| "/images/headimg.png",
       headImgHeight: width * 0.24,
       topMargin: width*0.12,
     });
-    if(app.globalData.if_doctor){
-      this.setData({
-        if_doctor:true
-      })
-    }
   },
   i_know(){
     wx.setStorageSync('know', true);
@@ -65,8 +60,8 @@ Page({
     })
   },
   history:function(){
-    let if_information = app.globalData.if_information;
-    if (if_information) {
+    let ifAuth = wx.getStorageSync('ifAuth')||false;
+    if (ifAuth) {
       wx.navigateTo({
         url: '/pages/personal/history'
       })
@@ -77,18 +72,10 @@ Page({
       })
     }    
   },
-  go_test:function(){
-    let if_information = app.globalData.if_information;
-    if (if_information){
-      wx.navigateTo({
-        url: '/pages/evaluation/form1'
-      })
-    }else{
-      //弹出信息
-      this.setData({
-        show:true
-      })
-    }    
+  go_test:function(){   
+    wx.navigateTo({
+      url: '/pages/evaluation/form'
+    })      
   },
   cancel(){
     //弹出信息

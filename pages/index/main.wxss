@@ -1,0 +1,31 @@
+/**index.wxss**/
+@import "../../style/dialog.wxss";
+page {
+ overflow: hidden;
+ position: relative
+}
+.container {
+  height: 100vh;  
+  overflow: hidden;
+  background-image: url('http://pic.tsing-tec.com/eplus/images/4c4a577d758f4ef6b8b73ce7d242f0c6.png?imageView2');
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  -moz-background-size:100% 100%;
+} 
+
+.go-test {
+  width: 10rem;  
+  height: 3rem;
+  line-height: 3rem;
+  background: #5369fd;
+  color: #fff;
+  border-radius: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  position: fixed;
+  bottom: 5rem;  
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}

@@ -4,7 +4,7 @@
   <view class="personal" style="height:{{imgheight}}px">
     <image class="headimg" style="height:{{headImgHeight}}px;width:{{headImgHeight}}px;margin:{{topMargin}}px auto 0;" src='{{headImg}}'></image>
     <view class="nickname">{{nickName}}</view>
-    <view class="des">{{des}}</view>
+    
   </view>
   <view class="container">    
     <view class="grid_box">      

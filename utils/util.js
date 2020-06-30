@@ -17,6 +17,12 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+
+function back() {
+  wx.navigateBack({
+    delta: 1
+  })
+};
 /**
  * 微信登录
  */
@@ -190,7 +196,19 @@ function request(url, data = {}, method = "GET") {
     })
   });
 };
-
+//提示
+function warn(that, warnMsg) {
+  that.setData({
+    warn: true,
+    warnMsg: warnMsg
+  });
+  setTimeout(function () {
+    that.setData({
+      warn: false,
+      warnMsg: ''
+    })
+  }, 1500);
+};
 
 module.exports = {
   newTime,
@@ -198,5 +216,7 @@ module.exports = {
   auth,
   getCode,
   getUserInfo,
-  request
+  request,
+  warn,
+  back
 }

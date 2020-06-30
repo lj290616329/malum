@@ -1,0 +1,22 @@
+<include src ="../template/error.wxml"/>
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    
+  </view>
+  <view class='go-test' bindtap='showAuthorize'>开始测试</view>
+</view>
+
+<view class='mask' wx:if='{{show}}'>
+  <view class='modal-content'>
+    <view class="modal-logo">
+      <image class="logo" src="/images/logo.png"></image>
+    </view>
+    <view class='modal-title'>您还未授权</view>
+    <view class='modal-des'>请问您是否开始授权进行测试?</view>
+    <view class='modal-btns'>
+        <button class='modal-btn btn_cancel'  bindtap='cancel'>否</button>
+        <button class='modal-btn btn_primary' open-type="getUserInfo" bindgetuserinfo="getDatas">是</button>
+    </view>    
+  </view>
+</view>

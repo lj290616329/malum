@@ -22,12 +22,13 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true,
+		"useIsolateContext": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.11.1",
-	"appid": "wxffbd431d1affeacc",
+	"libVersion": "2.11.0",
+	"appid": "wx1318959043b8a3f4",
 	"projectname": "malum",
 	"debugOptions": {
 		"hidedInDevtools": []
