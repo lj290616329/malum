@@ -286,7 +286,7 @@ function sendAjax(that,url,data,type,ft){
   promise.then(res=>{
     if(res.code==0){
       ft(res)
-    }else if(res.code==-1){
+    }else if(res.code==-1||res.code == 400){
       warn(that,res.msg)
     }else{
       prompt(that,res.msg)
