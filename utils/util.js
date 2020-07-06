@@ -94,8 +94,7 @@ function getUserInfo() {
           reject({code:-1,errMsg:"用户未进行授权,无法获取权限"});
         }
       }
-    })
-    
+    })    
   });
 };
 
@@ -224,6 +223,84 @@ function subscribe(){
   })
 }
 /**
+ * 封装微信的的request 设计版
+ * 统一处理一下异常
+ * token过期重新获取
+ * that 页面对象
+ * url url
+ * data 请求参数
+ * type 请求类型
+ * ft 成功执行的方法
+ */
+let retry = 0;
+function sendAjax(that,url,data,type,ft){  
+  log.info({url:url,data:data,type:type});
+  wx.showLoading({
+    title: '请稍后',
+    mask:true
+  })
+  var promise = new Promise(function (resolve, reject) {
+    wx.request({
+      url: url,
+      data: data,
+      method: type,
+      header: {
+        'Content-Type': 'application/json',
+        'token':wx.getStorageSync('token')||""
+      },
+      dataType:"json",
+      success: function (res) {
+        log.info(res);
+        console.log(res);        
+        if (res.statusCode == 200) {
+          /**/
+          if (res.data.code == 401) {
+            console.log("重新获取token 然后在进行")
+            //需要登录后才可以操作
+            if(retry>2){
+              resolve(res);
+            }else{
+              auth().then((result) => {
+                retry++;  
+                console.log(result);
+                wx.setStorageSync('token', result.data.token);
+                sendAjax(that,url,data,type,ft);  
+              });
+            }
+          } else {
+            retry = 0;
+            resolve(res.data);
+          }
+        } else {
+          reject({code:999,msg:JSON.stringify(res)});
+        }
+      },
+      fail: function (err) {
+        wx.hideLoading();
+        reject({code:999,msg:JSON.stringify(err)});
+        console.log("failed")
+      }
+    })
+  });
+  wx.hideLoading();
+  promise.then(res=>{
+    if(res.code==0){
+      ft(res)
+    }else if(res.code==-1){
+      warn(that,res.msg)
+    }else{
+      prompt(that,res.msg)
+    }
+  })
+};
+function prompt(that,msg){
+  that.setData({
+    prompt:true,
+    promptMsg:msg
+  })
+};
+
+/**
  * 封装微信的的request
  * token过期重新获取
  */
@@ -301,5 +378,6 @@ module.exports = {
   request,
   warn,
   back,
-  subscribe
+  subscribe,
+  sendAjax
 }

@@ -5,7 +5,6 @@
     "pages/doctor/evaluation_detail",
     "pages/doctor/index",
     "pages/doctor/list",
-    "pages/evaluation/additional",
     "pages/doctor/patient",
     "pages/doctor/info",
     "pages/evaluation/form",

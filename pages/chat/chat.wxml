@@ -12,7 +12,7 @@
   </view>
 </template>
 <template name="file">
-  <view class="chat-text" bindtap="down" data-src="{{util.fileSrc(content)}}">文件信息,点击下载</view>
+  <view class="chat-text" data-src="{{util.fileSrc(content)}}">文件信息,请在公众号进行查看</view>
 </template>
 
 <view class="main">

@@ -68,18 +68,14 @@ Page({
             })
           }else{
             if(wx.getStorageSync('ifAuth')){              
-              util.subscribe().then(resp=>{
-                util.request(api.EvaluationForm,JSON.stringify(Object.values(that.data.result)),"post").then(res=>{
-                  if(res.code==0){
-                    that.setData({
-                      showCode:true,
-                      code:"data:image/png;base64," + res.data.replace(/[\r\n]/g, "")
-                    })
-                  }
+              util.subscribe().then(resp=>{                
+                util.sendAjax(that,api.EvaluationForm,JSON.stringify(Object.values(that.data.result)),"post",function(res){
+                  that.setData({
+                    showCode:true,
+                    code:"data:image/png;base64," + res.data.replace(/[\r\n]/g, "")
+                  })
                 })
-              }
-                
-              )              
+              })              
             }else{
               that.setData({
                 auth:true
@@ -244,37 +240,28 @@ Page({
     if (e.detail.errMsg !== 'getUserInfo:ok') {
       wx.hideLoading();
       if (e.detail.errMsg === 'getUserInfo:fail auth deny') {
-        util.prompt(that,"授权失败");
+        util.warn(that,"授权失败");
         return false;
       }
       return false;
     };
     util.getCode().then(function(res){
       wx.hideLoading();
-      return util.request(api.WxAuth,JSON.stringify({
+      util.sendAjax(that,api.WxAuth,JSON.stringify({
         code: res,
         encryptedData: e.detail.encryptedData,
         iv: e.detail.iv,
         signature: e.detail.signature,
         rawData: e.detail.rawData
-      }),"post");
-    }).then(function(result){
-      console.log(result)
-      wx.hideLoading();
-      //授权成功
-      if(result.code==0){
+      }),"post",function(result){
+        wx.setStorageSync('token', result.data.token);
+        wx.setStorageSync('ifAuth', result.data.ifAuth);
+        wx.setStorageSync('type', result.data.type);
         that.setData({
           auth:false
         })
-        wx.setStorageSync('token', result.data.token);
-      }else{
-        util.warn(that,"授权失败,请稍后再试!");
-      }
-    }).catch(function(err){
-      console.log(2)
-      util.warn(that,"授权失败,请稍后再试!");
-      wx.hideLoading();
-    });
+      })  
+    })
   },
   cancle(){
     that.setData({

@@ -12,12 +12,11 @@ Page({
   },  
   onLoad: function(options) {
     that = this;
-    util.request(api.NewsTags,{},"get").then(res=>{
+    util.sendAjax(that,api.NewsTags,{},"get",function(res){
       that.setData({
         tags:res.data,
         newsLists:app.globalData.newsLists
       })
-
       let tid = app.globalData.tid||res.data[0].id;
       that.showList(tid);
     })
@@ -36,7 +35,7 @@ Page({
         return;
       }
     }
-    util.request(api.NewsList,{pageNum:pageNum,pageSize:pageSize,tag:tid},"POST").then(res=>{
+    util.sendAjax(that,api.NewsList,{pageNum:pageNum,pageSize:pageSize,tag:tid},"POST",function(res){
       console.log(res);
       data.last = res.data.last;
       data.pageNum = pageNum;
@@ -46,7 +45,6 @@ Page({
       data.end = res.data.last;      
       that.setData({
         [set_key] : data,
-        lists:data.content,
         sTop:sTop,
         end:data.end,
         tid:tid
@@ -59,8 +57,7 @@ Page({
   showList(tid){
     if(that.data.newsLists[""+tid]){
       let data = that.data.newsLists[""+tid];
-      that.setData({
-        lists:data.content,
+      that.setData({        
         sTop:data.sTop,
         end:data.end,
         tid:tid
@@ -79,7 +76,6 @@ Page({
     that.getNewsList(tid);
   },
   scroll(e){
-    console.log(e);
     let tid = that.data.tid;
     let set_key = 'newsLists.'+tid+'.sTop';
     that.setData({

@@ -6,10 +6,10 @@
 </scroll-view>
 <scroll-view class="news-content" scroll-with-animation="true" scroll-y="true" scroll-top="{{sTop}}" bindscroll="scroll" bindscrolltolower="more">
   <view class="item-box">
-    <block  wx:for="{{lists}}" wx:for-item="article">
+    <block  wx:for="{{newsLists[''+tid].content}}" wx:for-item="article">
       <view class="item" bindtap="detail" data-id="{{article.id}}">
         <view class="item-head">
-          <image src="{{article.pic}}"></image>
+          <image mode="scaleToFill" src="{{article.pic}}?imageView2/1/w/100/h/100"></image>
         </view>
         <view class="item-content">
           <view class="item-username">{{article.title}}<view class="item-time">{{util.timeago(article.createTime)}}</view></view>
@@ -19,8 +19,7 @@
       </view>
     </block>
 
-
-    <view class="prompt-box" wx:if="{{lists.length==0}}">
+    <view class="prompt-box" wx:if="{{newsLists[''+tid].content.length==0}}">
       <view class="prompt-icon">
           <image src="/images/no-data.png"></image>
       </view>
@@ -28,7 +27,7 @@
       <view class="prompt-msg">请切换其他类型查看</view>
     </view>
 
-    <view class="sigma-content" wx:if="{{lists.length>0&&end}}">
+    <view class="sigma-content" wx:if="{{newsLists[''+tid].content.length>0&&end}}">
       <view class="sigma-middle-line">
         <text class="sigma-line-text">我是有底线的</text>
       </view>

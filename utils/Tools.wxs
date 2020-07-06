@@ -14,7 +14,7 @@ var fileSrc = function(msg){
   if(msg==undefined || null==msg||""==msg){
     return "";
   }
-  return msg.substring(4,msg.indexOf(")"));
+  return msg.substring(5,msg.indexOf(")"));
 };
 var imgSrc = function(msg){
   if(msg==undefined || null==msg||""==msg){
@@ -102,7 +102,6 @@ var timeago = function(timestamp){
             H = date.getHours(),
             m = date.getMinutes(),
             s = date.getSeconds();
-  console.log(date);
   // 对 月 日 时 分 秒 小于10时, 加0显示 例如: 09-09 09:01
   if (M < 10) {
             M = '0' + M;
@@ -125,7 +124,6 @@ var timeago = function(timestamp){
             diff_hours = parseInt(diffValue / 3600), // 一时3600秒
             diff_minutes = parseInt(diffValue / 60),
             diff_secodes = parseInt(diffValue);
-            console.log(nowTime)
   if (diff_days > 0 && diff_days < 3) { //相差天数 0 < diff_days < 3 时, 直接返出
   return diff_days + "天前";
         } else if (diff_days <= 0 && diff_hours > 0) {

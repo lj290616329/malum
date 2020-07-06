@@ -11,12 +11,10 @@ Page({
     that = this;
     console.log(options)
     let id = options.id;    
-    util.request(api.NewsDetail+id,{},"get").then(res=>{
+    util.sendAjax(that,api.NewsDetail+id,{},"get",function(res){
       console.log(res);
-
       let article = res.data;
-      article.content = article.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto;display:block;margin:0 auto;"')
-
+      article.content = article.content.replace(/\<img/gi, '<img style="max-width:100%;height:auto;display:block;margin:0 auto;"');
       that.setData({
         article:article
       })

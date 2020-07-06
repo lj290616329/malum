@@ -2,59 +2,29 @@
 //获取应用实例
 import websocket from '../../utils/websocket.js';
 var API = require('../../config/api.js');
-var Util = require('../../utils/util.js');
+var util = require('../../utils/util.js');
 var that;
 Page({
   data: {    
   },
   onLoad: function (options) {
-
     that = this;    
     console.log(options)
     that.chatInitData(options.id);
   },
   chatInitData(toid){
-    Util.request(API.ChatInitData+toid,{},"get").then(function(result){
-      console.log(result)
-      if(result.code==0){
-        console.log(result.data);
-        let chatLogs = result.data.history['friend'+result.data.to.id]||[];
-        that.setData({
-          Mine:result.data.mine,
-          To:result.data.to,
-          chatLogs: chatLogs,
-          toLast:"item"+chatLogs.length
-        });
-        wx.setNavigationBarTitle({
-          title: '与'+ result.data.to.username+'的对话'
-        });        
-        that.websocket(result.data.mine);
-      }else{
-        wx.showModal({
-          content:result.msg,
-          showCancel:false,
-          success(res){
-            if (res.confirm) {
-              wx.navigateBack({
-                delta: 1
-              })
-            }
-          }
-        })
-      }
-    }).catch(function(err){
-      console.log(err);
-      wx.showModal({
-        content:"出错了",
-        showCancel:false,
-        success(res){
-          if (res.confirm) {
-            wx.navigateBack({
-              delta: 1
-            })
-          }
-        }
-      })
+    util.sendAjax(that,API.ChatInitData+toid,{},"get",function(result){
+      let chatLogs = result.data.history['friend'+result.data.to.id]||[];
+      that.setData({
+        Mine:result.data.mine,
+        To:result.data.to,
+        chatLogs: chatLogs,
+        toLast:"item"+chatLogs.length
+      });
+      wx.setNavigationBarTitle({
+        title: '与'+ result.data.to.username+'的对话'
+      });        
+      that.websocket(result.data.mine);
     });   
   },
   //点击发送
@@ -75,16 +45,56 @@ Page({
     //程序后台后的操作--关闭websocket连接
     that.websocket.closeWebSocket();
   },
+  /* 下载文件,发现bug 返回时会微信崩溃
   down(e){
     console.log(e);
-
+    wx.getSavedFileList({  // 获取文件列表
+      success(res) {
+        res.fileList.forEach((val, key) => { // 遍历文件列表里的数据
+          // 删除存储的垃圾数据
+          wx.removeSavedFile({
+            filePath: val.filePath
+          });
+        })
+      }
+    })
     wx.downloadFile({
       url: e.target.dataset.src,
       success (res) {
         console.log(res);
+        console.log("success");
         // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
         if (res.statusCode === 200) {
-          
+          let filePath = res.tempFilePath;
+          console.log(filePath);
+          wx.saveFile({
+            tempFilePath: filePath,
+            success(res) {
+              console.log("save success");
+              console.log(res);
+
+              const savedFilePath = res.savedFilePath;
+              // 打开文件
+              wx.openDocument({
+                filePath: savedFilePath,
+                showMenu:true,
+                success: function (res) {
+                  console.log(res)
+                  console.log('打开文档成功')
+                },
+                fail(fail){
+                  console.log(fail)
+                  console.log("open fail")
+                }
+              })
+
+              
+            },
+            fail(fail){
+              console.log("downfail");
+              console.log(fail);
+            }
+          })
         }
       },
       fail:function(fail){
@@ -95,20 +105,7 @@ Page({
         console.log("jieshu")
       }
     })
-
-
-    wx.downloadFile({
-      url: e.target.dataset.src,
-      success (res) {
-        // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-        if (res.statusCode === 200) {
-          wx.playVoice({
-            filePath: res.tempFilePath
-          })
-        }
-      }
-    })
-  },
+  },*/
   addPic(e){
     wx.chooseImage({
       count: 1,

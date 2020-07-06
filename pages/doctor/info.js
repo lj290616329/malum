@@ -8,16 +8,12 @@ Page({
   },
   onLoad: function (option) {
     that = this;
-    util.request(api.DoctorInfo,{},"get").then(function(result){
-      if (result.code == 0) {
-        var doctor = result.data;
-        that.setData({
-          doctor:doctor
-        })
-      } else {
-        util.prompt(that, result.errmsg);
-      }
-    });   
+    util.sendAjax(that,api.DoctorInfo,{},"get",function(res){
+      var doctor = res.data;
+      that.setData({
+        doctor:doctor
+      })
+    });
   },
   back: function () {
     util.back();
@@ -26,23 +22,16 @@ Page({
   submitForm(e) {
     let data = e.detail.value;    
     console.log(data)
-    util.request(api.DoctorInfoEdit,data,"post").then(function(result){
-      console.log(result);
-      if (result.code == 0) {
-        wx.showToast({
-          title: '保存成功',
-          icon: 'success',
-          duration: 2000,
-          success: function () {
-            util.back();
-          }
-        })
-      } else {
-        util.prompt(that, result.data.errmsg);
-      }
-    }).catch(function(err){
-      console.log(err);
-    })
+    util.sendAjax(that,api.DoctorInfoEdit,data,"post",function(res){
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000,
+        success: function () {
+          util.back();
+        }
+      })
+    });
   },
   onShareAppMessage: function () {
     return app.globalData.shareMessage

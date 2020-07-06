@@ -30,36 +30,26 @@ Page({
    */
   onLoad: function (options) {
     that = this;
-    console.log(app.globalData);
     var width = wx.getSystemInfoSync().windowWidth;
     that.setData({
       codeHeight: width * 0.8 * 0.8 + "px"
     })
     console.log('evaluation_detail.js onload');
-    var id = options.id;    
-    util.request(api.PersonalEvaluationDetail+id,{},"get").then(function(result){
-      console.log(result)
-      console.log(result);
-      if (result.code == 0) {
-        that.setData({
-          detail:result.data,
-          code:"data:image/png;base64," + result.data.src.replace(/[\r\n]/g, "")
-        })
-      }
+    var id = options.id;
+    util.sendAjax(that,api.PersonalEvaluationDetail+id,{},"get",function(result){    
+      that.setData({
+        detail:result.data,
+        code:"data:image/png;base64," + result.data.src.replace(/[\r\n]/g, "")
+      })      
     });   
   },
   chat(e){
     const id = e.currentTarget.dataset.id;
-    util.request(api.ChatByDid+id,{},"get").then(function(result){
-      if(result.code==0){
-        wx.navigateTo({
-          url: '/pages/chat/chat?id='+result.data
-        })
-      }else{
-        util.warn(that,result.msg);
-      }
+    util.sendAjax(that,api.ChatByDid+id,{},"get",function(result){
+      wx.navigateTo({
+        url: '/pages/chat/chat?id='+result.data
+      })
     })
-
   },
   share_result:function(){
     that.setData({

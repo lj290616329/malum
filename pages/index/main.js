@@ -39,18 +39,14 @@ Page({
     };
     util.getCode().then(function(res){
       wx.hideLoading();
-      return util.request(api.WxAuth,JSON.stringify({
+      util.request(that,api.WxAuth,JSON.stringify({
         code: res,
         encryptedData: e.detail.encryptedData,
         iv: e.detail.iv,
         signature: e.detail.signature,
         rawData: e.detail.rawData
-      }),"post");
-    }).then(function(result){
-      console.log(result)
-      wx.hideLoading();
-      if(result.code==0){
-        //是否医生
+      }),"post",function(result){
+        
         wx.setStorageSync('token', result.data.token);
         wx.setStorageSync('ifAuth', result.data.ifAuth);
         wx.setStorageSync('type', result.data.type);
@@ -63,15 +59,8 @@ Page({
             url: '/pages/doctor/index'
           }) 
         }
-      }else{
-        console.log(1)
-        util.warn(that,"授权失败,请稍后再试!");
-      }
-    }).catch(function(err){
-      console.log(2)
-      util.warn(that,"授权失败,请稍后再试!");
-      wx.hideLoading();
-    });
+      });
+    })
   },
   cancel:function(){
     app.globalData.if_test = true;

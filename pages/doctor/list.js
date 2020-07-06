@@ -12,7 +12,7 @@ Page({
     console.log('doctor-list.js onload');
     console.log(JSON.stringify({pid:pid,ifEnd:ifEnd}))
     that = this;
-    util.request(api.DoctorList,JSON.stringify({pid:pid,ifEnd:ifEnd}),"post").then(function(result){
+    util.sendAjax(that,api.DoctorList,JSON.stringify({pid:pid,ifEnd:ifEnd}),"post",function(result){
       console.log(result);
       let data = result.data;
       let noData = false;

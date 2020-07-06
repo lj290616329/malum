@@ -11,17 +11,14 @@ Page({
   onLoad: function (option) {
     console.log('info.js onload');
     that = this;
-    util.request(api.InformationDetail,{},"get").then(function(result){
-      console.log(result)
-      if(result.code==0){
-        let information = result.data||{};
-        let domicile = information.domicile||"";
-        information.domicileList = domicile.split(",")
-        that.setData({
-          information :information
-        })
-      }
-    })
+    util.sendAjax(that,api.InformationDetail,{},"get",function(result){
+      let information = result.data||{};
+      let domicile = information.domicile||"";
+      information.domicileList = domicile.split(",")
+      that.setData({
+        information :information
+      })
+    });
     that.initValidate();
   },
   initValidate(){
@@ -53,8 +50,7 @@ Page({
       },
       address:{
         required: true
-      }
-      
+      }      
     }
     const messages = {
       name: {
@@ -112,32 +108,26 @@ Page({
     const params = e.detail.value;
     if (!that.WxValidate.checkForm(params)) {
       const error = that.WxValidate.errorList[0];
-      console.log(error);
       util.warn(that,error.msg);
       return;
     }
     params.domicile = params.domicile.join(",");
-    util.request(api.InformationForm,JSON.stringify(params),"POST").then(function(result){
-      console.log(result);
-      if (result.code == 0) {
-        var pages = getCurrentPages();//当前页面栈
-        if (pages.length > 1) {
-          var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
-          beforePage.setData({       //如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
-            ifAuth: false
-          })
-        }
-        wx.showToast({
-          title: '保存成功',
-          icon: 'success',
-          duration: 2000,
-          success:function(){
-            util.back();
-          }
+    util.sendAjax(that,api.InformationForm,JSON.stringify(params),"POST",function(result){
+      var pages = getCurrentPages();//当前页面栈
+      if (pages.length > 1) {
+        var beforePage = pages[pages.length - 2];//获取上一个页面实例对象
+        beforePage.setData({//如果需要传参，可直接修改A页面的数据，若不需要，则可省去这一步
+          ifAuth: false
         })
-      } else {
-        util.warn(that, result.errmsg);        
       }
+      wx.showToast({
+        title: '保存成功',
+        icon: 'success',
+        duration: 2000,
+        success:function(){
+          util.back();
+        }
+      })
     });
   },
   onShareAppMessage: function () {

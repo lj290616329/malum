@@ -47,7 +47,7 @@ Page({
   },
   getlist: function (options){
     var name = options.name||'';
-    util.request(api.MyPatient,name,"POST").then(function(result){
+    util.sendAjax(that,api.MyPatient,name,"POST",function(result){
       if(result.data.length>0){
         that.setData({
           lists:result.data,

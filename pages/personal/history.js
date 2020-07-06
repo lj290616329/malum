@@ -9,8 +9,7 @@ Page({
   onLoad: function (option) {
     console.log('info.js onload');
     that = this;
-    util.request(api.PersonalEvaluationList,{},"get").then(function(result){
-      console.log(result);
+    util.sendAjax(that,api.PersonalEvaluationList,{},"get",function(result){
       let data = result.data;
       let noData = false;
       if(Object.keys(data).length==0){

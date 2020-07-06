@@ -1,6 +1,7 @@
 var app = getApp();
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
+var that;
 Page({
   data: {
     imgheight: 150,
@@ -13,6 +14,7 @@ Page({
     promptMsg: ''        
   },  
   onLoad: function () {
+    that = this;
     console.log("doctor-index.js----onload");
     var width = wx.getSystemInfoSync().windowWidth;
     console.log(width);
@@ -62,36 +64,19 @@ Page({
     })
   },
   scan: function () {
-    var that = this;
-
+    
     // 允许从相机和相册扫码
     wx.scanCode({
       success: (res) => {
         var result = res.result;
         console.log(result)
         var token = result;
-        util.request(api.EvaluationBind,token,"post").then(function(result){
-          console.log(result);
-          if (result.code == 0) {
+        util.sendAjax(that,api.EvaluationBind,token,"post",function(result){
             wx.navigateTo({
               url: '/pages/doctor/evaluation_detail?id=' + result.data,
-            })
-          } else {
-            util.prompt(that, result.msg);
-          }
-        }).catch((err) => {
-          if(err.data.status==500){
-            util.prompt(that, "请扫描病人出示的二维码!"); 
-          }else{
-            util.prompt(that, "扫描失败,请稍后再试!"); 
-          }
-        })        
+            })        
+        })
       }
-    })
-  },
-  map() {
-    wx.navigateTo({
-      url: '/pages/map/index'
     })
   },
   onShareAppMessage: function () {

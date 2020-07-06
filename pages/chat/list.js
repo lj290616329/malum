@@ -10,8 +10,7 @@ Page({
     console.log('info.js onload');
     that = this;
     let type = options.type;
-    util.request(api.ChatFriends+type,{},"get").then(function(result){
-      console.log(result);
+    util.sendAjax(that,api.ChatFriends+type,{},"get",function(result){
       if(result.data.length>0){
         that.setData({
           lists: result.data[0].list

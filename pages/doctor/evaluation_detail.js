@@ -69,17 +69,12 @@ Page({
       num4: that.data.handleResult[3],
       num5: that.data.handleResult[4],
       num6: that.data.handleResult[5],
-    });        
-    util.request(api.EvaluationProcess,data,"post").then(function(result){
-      console.log(result);
-      if (result.errcode == 0) {
+    });
+    util.sendAjax(that,api.EvaluationProcess,data,"post",function(result){        
         wx.showToast({
-          title: result.errmsg,
+          title: result.msg,
         })
         that.onLoad({id:that.data.id});
-      } else {
-        util.prompt(that, result.errmsg);
-      }
     })
   },
   /**
@@ -89,26 +84,19 @@ Page({
     that = this;
     console.log('doctor-evaluation_detail.js onload');
     var id = options.id;
-    
-    util.request(api.DoctorEvaluationDetail + id,{},"get").then(function(result){
+    util.sendAjax(that,api.DoctorEvaluationDetail + id,{},"get",function(result){
       console.log(result);
-      if (result.code == 0) {
-        that.setData({
-          detail:result.data
-        })
-      }
+      that.setData({
+        detail:result.data
+      })
     })   
   },
   chat(e){
     const id = e.currentTarget.dataset.id;
-    util.request(api.ChatByDid+id,{},"get").then(function(result){
-      if(result.code==0){
-        wx.navigateTo({
-          url: '/pages/chat/chat?id='+result.data
-        })
-      }else{
-        util.warn(that,result.msg);
-      }
+    util.sendAjax(that,api.ChatByDid+id,{},"get",function(result){
+      wx.navigateTo({
+        url: '/pages/chat/chat?id='+result.data
+      })
     })
   },
   back: function () {

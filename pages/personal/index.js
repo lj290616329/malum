@@ -22,7 +22,7 @@ Page({
       know:know,
       imgheight: width * 0.62,
       nickName: userInfo.nickName || "",
-      headImg: userInfo.avatarUrl|| "/images/headimg.png",
+      headImg: userInfo.avatarUrl || "/images/headimg.png",
       headImgHeight: width * 0.24,
       topMargin: width*0.12,
       if_doctor:wx.getStorageSync('type')==2?true:false
