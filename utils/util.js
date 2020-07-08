@@ -155,7 +155,7 @@ function subscribe(){
           let acceptTmpList = [];
           for(let i = 0; i < tmpIds.length; i++ ){
             let tmpId = tmpIds[i];
-            if(cres[tmpId] == "accept"){
+            if(res[tmpId] == "accept"){
               acceptTmpList.push(tmpId);
             }
           }

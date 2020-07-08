@@ -95,7 +95,7 @@
       <image style="width:90%;padding:5%;height:90%" src="{{code}}"></image>
     </view>
     <view class='modal-btns bt'>
-        <button class='modal-btn btn_cancel'  bindtap='back'>返回</button>
+        <button class='modal-btn btn_cancel'  bindtap='home'>返回</button>
     </view>    
   </view>
 </view>

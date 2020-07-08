@@ -7,8 +7,8 @@
         <image src="{{item.avatar}}"></image>
       </view>
       <view class="item-content">
-        <view class="item-username">{{item.username}}<view class="item-time" wx:if="{{item.chatlog}}">{{utils.timeago(item.chatlog.timestamp)}}</view></view>
-        <view class="item-desc" wx:if="{{item.chatlog}}">{{item.chatlog.content}}</view>
+        <view class="item-username">{{item.username}}<view class="item-time" wx:if="{{item.historyTime}}">{{utils.timeago(item.historyTime)}}</view></view>
+        <view class="item-desc" wx:if="{{item.content}}">{{item.content}}</view>
       </view>
       <view class="item-badge" wx:if="{{item.unRead>0}}">{{item.unRead}}</view>
     </view>

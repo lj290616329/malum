@@ -14,7 +14,7 @@ Page({
   },
   chatInitData(toid){
     util.sendAjax(that,API.ChatInitData+toid,{},"get",function(result){
-      let chatLogs = result.data.history['friend'+result.data.to.id]||[];
+      let chatLogs = result.data.chatlog['friend'+result.data.to.id]||[];
       that.setData({
         Mine:result.data.mine,
         To:result.data.to,
@@ -146,7 +146,7 @@ Page({
       },
       fail: function (e) {
         console.log(e);
-        Util.warn(that,"发送失败");
+        util.warn(that,"发送失败");
       },
       complete: function () {
         wx.hideToast();  //隐藏Toast
@@ -174,7 +174,7 @@ Page({
     });
     // 监听websocket状态
     that.websocket.onSocketClosed({
-      url: API.Websocket+Mine.id,
+      url: API.Websocket+Mine.id+"/1",
       success(res) {        
         console.log("state:"+res);
       },
@@ -196,7 +196,7 @@ Page({
       if(chatMessage.type==="chatMessage"){
         let chatLogs = that.data.chatLogs;
         let chatLog = chatMessage.data;
-        chatLog.timestamp = Util.newTime();
+        chatLog.timestamp = util.newTime();
         chatLogs.push(chatLog);
         that.setData({
           chatLogs: chatLogs,
@@ -209,7 +209,7 @@ Page({
   linkWebsocket() {
     // 建立连接
     that.websocket.initWebSocket({
-      url: API.Websocket+that.data.Mine.id,
+      url: API.Websocket+that.data.Mine.id+"/1",
       success(res) { console.log(res);
         wx.showToast({
           title: '连接成功!',
@@ -241,7 +241,7 @@ Page({
         let chatLogs = that.data.chatLogs;
         let chatLog = JSON.parse(data).data;
         chatLog.mine = true;
-        chatLog.timestamp = Util.newTime();
+        chatLog.timestamp = util.newTime();
         chatLogs.push(chatLog);
         that.setData({
           chatLogs: chatLogs,
@@ -249,7 +249,7 @@ Page({
         })
       },
       fail(res){
-        Util.warn(that,"发送失败");
+        util.warn(that,"发送失败");
         that.linkWebsocket();
         console.log("失败");
         console.log(res);

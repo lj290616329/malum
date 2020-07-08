@@ -231,7 +231,6 @@ Page({
     })
   },
   getDatas: function(e) {
-    log.info(e);
     console.log(e);
     wx.showLoading({
       mask:true,
@@ -260,6 +259,11 @@ Page({
         that.setData({
           auth:false
         })
+
+        wx.showModal({
+          showCancel:false,
+          content:'您已授权成功,请再次进行提交'          
+        })
       })  
     })
   },
@@ -271,5 +275,10 @@ Page({
   },
   back(){
     util.back();
+  },
+  home(){
+    wx.reLaunch({
+      url: '/pages/personal/index'
+    })
   }
 })
