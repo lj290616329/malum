@@ -272,12 +272,12 @@ function sendAjax(that,url,data,type,ft){
             resolve(res.data);
           }
         } else {
-          reject({code:999,msg:JSON.stringify(res)});
+          reject({code:999,msg:res});
         }
       },
       fail: function (err) {
         wx.hideLoading();
-        reject({code:999,msg:JSON.stringify(err)});
+        reject({code:999,msg:err});
         console.log("failed")
       }
     })
@@ -291,7 +291,10 @@ function sendAjax(that,url,data,type,ft){
     }else{
       prompt(that,res.msg)
     }
-  })
+  }).catch((err) => {
+    console.log(err);
+    prompt(that,JSON.stringify(err))
+  });
 };
 function prompt(that,msg){
   that.setData({
