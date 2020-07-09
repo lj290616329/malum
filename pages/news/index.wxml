@@ -1,4 +1,5 @@
 <wxs src="../../utils/Tools.wxs" module="util"/>
+<include src ="../template/error.wxml"/>
 <scroll-view class="news-tags" scroll-x>
   <block wx:for="{{tags}}" wx:for-item="tag">
     <view class="news-tag {{tid==tag.id?'news-tags-active':''}}" data-id="{{tag.id}}" data-index="{{index}}" bindtap="changeTag">{{tag.name}}</view>

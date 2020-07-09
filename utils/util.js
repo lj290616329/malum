@@ -284,6 +284,7 @@ function sendAjax(that,url,data,type,ft){
   });
   wx.hideLoading();
   promise.then(res=>{
+    log.info(res);
     if(res.code==0){
       ft(res)
     }else if(res.code==-1||res.code == 400){
